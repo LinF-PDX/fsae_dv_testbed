@@ -1,0 +1,407 @@
+[0.000000] (-) TimerEvent: {}
+[0.000438] (cone_detector) JobQueued: {'identifier': 'cone_detector', 'dependencies': OrderedDict()}
+[0.000686] (rslidar_msg) JobQueued: {'identifier': 'rslidar_msg', 'dependencies': OrderedDict()}
+[0.000735] (rslidar_sdk) JobQueued: {'identifier': 'rslidar_sdk', 'dependencies': OrderedDict({'rslidar_msg': '/home/linfu/ros2_ws/install/rslidar_msg'})}
+[0.000762] (rslidar_msg) JobStarted: {'identifier': 'rslidar_msg'}
+[0.005582] (cone_detector) JobStarted: {'identifier': 'cone_detector'}
+[0.009637] (rslidar_msg) JobProgress: {'identifier': 'rslidar_msg', 'progress': 'cmake'}
+[0.010795] (rslidar_msg) JobProgress: {'identifier': 'rslidar_msg', 'progress': 'build'}
+[0.010840] (rslidar_msg) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/linfu/ros2_ws/build/rslidar_msg', '--', '-j20', '-l20'], 'cwd': '/home/linfu/ros2_ws/build/rslidar_msg', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_CA:en', 'USER': 'linfu', 'LC_TIME': 'en_CA.UTF-8', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib:/home/linfu/catkin_ws/install/rslidar_msg/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/linfu', 'OLDPWD': '/home/linfu/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'LC_MONETARY': 'en_CA.UTF-8', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '8754', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/linfu/ros2_ws/install:/home/linfu/catkin_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'linfu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'linfu', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/linfu/.local/bin:/opt/ros/jazzy/bin:/home/linfu/.local/bin:/home/linfu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/linfu-T15pGen3:@/tmp/.ICE-unix/8754,unix/linfu-T15pGen3:/tmp/.ICE-unix/8754', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_CA.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/458c12c0_8cc5_465d_8dad_f07521c6f17a', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_CA.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_CA.UTF-8', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.96', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_CA.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'en_CA.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_CA.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/linfu/ros2_ws/build/rslidar_msg', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'PYLON_ROOT': '/opt/pylon', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages:/home/linfu/catkin_ws/install/rslidar_msg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'en_CA.UTF-8', 'LC_PAPER': 'en_CA.UTF-8', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'GENICAM_GENTL64_PATH': ':/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/:/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.013798] (cone_detector) JobProgress: {'identifier': 'cone_detector', 'progress': 'cmake'}
+[0.014711] (cone_detector) JobProgress: {'identifier': 'cone_detector', 'progress': 'build'}
+[0.015248] (cone_detector) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/linfu/ros2_ws/build/cone_detector', '--', '-j20', '-l20'], 'cwd': '/home/linfu/ros2_ws/build/cone_detector', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_CA:en', 'USER': 'linfu', 'LC_TIME': 'en_CA.UTF-8', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib:/home/linfu/catkin_ws/install/rslidar_msg/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/linfu', 'OLDPWD': '/home/linfu/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'LC_MONETARY': 'en_CA.UTF-8', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '8754', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/linfu/ros2_ws/install:/home/linfu/catkin_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'linfu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'linfu', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/linfu/.local/bin:/opt/ros/jazzy/bin:/home/linfu/.local/bin:/home/linfu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/linfu-T15pGen3:@/tmp/.ICE-unix/8754,unix/linfu-T15pGen3:/tmp/.ICE-unix/8754', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_CA.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/458c12c0_8cc5_465d_8dad_f07521c6f17a', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_CA.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_CA.UTF-8', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.96', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_CA.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'en_CA.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_CA.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/linfu/ros2_ws/build/cone_detector', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'PYLON_ROOT': '/opt/pylon', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages:/home/linfu/catkin_ws/install/rslidar_msg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'en_CA.UTF-8', 'LC_PAPER': 'en_CA.UTF-8', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'GENICAM_GENTL64_PATH': ':/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/:/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.041513] (cone_detector) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.062377] (rslidar_msg) StdoutLine: {'line': b'[  5%] Built target rslidar_msg__rs\n'}
+[0.062701] (rslidar_msg) StdoutLine: {'line': b'[  5%] Built target rslidar_msg__rosidl_generator_type_description\n'}
+[0.070231] (rslidar_msg) StdoutLine: {'line': b'[  5%] Built target ament_cmake_python_copy_rslidar_msg\n'}
+[0.080165] (rslidar_msg) StdoutLine: {'line': b'[ 17%] Built target rslidar_msg__cpp\n'}
+[0.080382] (rslidar_msg) StdoutLine: {'line': b'[ 22%] Built target rslidar_msg__rosidl_generator_c\n'}
+[0.099413] (-) TimerEvent: {}
+[0.099910] (rslidar_msg) StdoutLine: {'line': b'[ 57%] Built target rslidar_msg__rosidl_typesupport_fastrtps_c\n'}
+[0.100111] (rslidar_msg) StdoutLine: {'line': b'[ 57%] Built target rslidar_msg__rosidl_typesupport_fastrtps_cpp\n'}
+[0.100206] (rslidar_msg) StdoutLine: {'line': b'[ 57%] Built target rslidar_msg__rosidl_typesupport_introspection_c\n'}
+[0.100290] (rslidar_msg) StdoutLine: {'line': b'[ 57%] Built target rslidar_msg__rosidl_typesupport_c\n'}
+[0.101803] (rslidar_msg) StdoutLine: {'line': b'[ 65%] Built target rslidar_msg__rosidl_typesupport_introspection_cpp\n'}
+[0.102369] (rslidar_msg) StdoutLine: {'line': b'[ 74%] Built target rslidar_msg__rosidl_typesupport_cpp\n'}
+[0.125990] (rslidar_msg) StdoutLine: {'line': b'[ 74%] Built target rslidar_msg\n'}
+[0.149967] (rslidar_msg) StdoutLine: {'line': b'[ 77%] Built target rslidar_msg__py\n'}
+[0.175848] (rslidar_msg) StdoutLine: {'line': b'[ 82%] Built target rslidar_msg__rosidl_generator_py\n'}
+[0.199541] (-) TimerEvent: {}
+[0.200345] (rslidar_msg) StdoutLine: {'line': b'[100%] Built target rslidar_msg_s__rosidl_typesupport_c\n'}
+[0.200519] (rslidar_msg) StdoutLine: {'line': b'[100%] Built target rslidar_msg_s__rosidl_typesupport_introspection_c\n'}
+[0.200634] (rslidar_msg) StdoutLine: {'line': b'[100%] Built target rslidar_msg_s__rosidl_typesupport_fastrtps_c\n'}
+[0.231557] (rslidar_msg) StdoutLine: {'line': b'running egg_info\n'}
+[0.233472] (cone_detector) StdoutLine: {'line': b'-- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[0.243970] (rslidar_msg) StdoutLine: {'line': b'writing rslidar_msg.egg-info/PKG-INFO\n'}
+[0.244193] (rslidar_msg) StdoutLine: {'line': b'writing dependency_links to rslidar_msg.egg-info/dependency_links.txt\n'}
+[0.244320] (rslidar_msg) StdoutLine: {'line': b'writing top-level names to rslidar_msg.egg-info/top_level.txt\n'}
+[0.256027] (cone_detector) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[0.263488] (cone_detector) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[0.272511] (cone_detector) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.276484] (rslidar_msg) StdoutLine: {'line': b"reading manifest file 'rslidar_msg.egg-info/SOURCES.txt'\n"}
+[0.276921] (rslidar_msg) StdoutLine: {'line': b"writing manifest file 'rslidar_msg.egg-info/SOURCES.txt'\n"}
+[0.284104] (cone_detector) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.299740] (-) TimerEvent: {}
+[0.310621] (rslidar_msg) StdoutLine: {'line': b'[100%] Built target ament_cmake_python_build_rslidar_msg_egg\n'}
+[0.323891] (rslidar_msg) CommandEnded: {'returncode': 0}
+[0.324534] (rslidar_msg) JobProgress: {'identifier': 'rslidar_msg', 'progress': 'install'}
+[0.330152] (cone_detector) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[0.331236] (cone_detector) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.335276] (rslidar_msg) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/linfu/ros2_ws/build/rslidar_msg'], 'cwd': '/home/linfu/ros2_ws/build/rslidar_msg', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_CA:en', 'USER': 'linfu', 'LC_TIME': 'en_CA.UTF-8', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib:/home/linfu/catkin_ws/install/rslidar_msg/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/linfu', 'OLDPWD': '/home/linfu/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'LC_MONETARY': 'en_CA.UTF-8', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '8754', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/linfu/ros2_ws/install:/home/linfu/catkin_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'linfu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'linfu', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/linfu/.local/bin:/opt/ros/jazzy/bin:/home/linfu/.local/bin:/home/linfu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/linfu-T15pGen3:@/tmp/.ICE-unix/8754,unix/linfu-T15pGen3:/tmp/.ICE-unix/8754', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_CA.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/458c12c0_8cc5_465d_8dad_f07521c6f17a', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_CA.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_CA.UTF-8', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.96', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_CA.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'en_CA.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_CA.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/linfu/ros2_ws/build/rslidar_msg', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'PYLON_ROOT': '/opt/pylon', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages:/home/linfu/catkin_ws/install/rslidar_msg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'en_CA.UTF-8', 'LC_PAPER': 'en_CA.UTF-8', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'GENICAM_GENTL64_PATH': ':/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/:/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.344740] (rslidar_msg) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[0.344868] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/ament_index/resource_index/rosidl_interfaces/rslidar_msg\n'}
+[0.344912] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/msg/RslidarPacket.json\n'}
+[0.344974] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.345010] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.345047] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rslidar_packet.h\n'}
+[0.345083] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rosidl_generator_c__visibility_control.h\n'}
+[0.345118] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.345153] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__type_support.h\n'}
+[0.345188] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__struct.h\n'}
+[0.345259] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__description.c\n'}
+[0.345293] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__functions.c\n'}
+[0.345327] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__type_support.c\n'}
+[0.345363] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__functions.h\n'}
+[0.345421] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/library_path.sh\n'}
+[0.345457] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/library_path.dsv\n'}
+[0.345540] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_generator_c.so\n'}
+[0.345578] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.345617] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.345650] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[0.345685] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.345717] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__rosidl_typesupport_fastrtps_c.h\n'}
+[0.345751] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_fastrtps_c.so\n'}
+[0.345784] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.345816] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.345869] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rslidar_packet.hpp\n'}
+[0.345902] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.345938] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__traits.hpp\n'}
+[0.345973] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__type_support.hpp\n'}
+[0.346009] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__struct.hpp\n'}
+[0.346049] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__builder.hpp\n'}
+[0.346119] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[0.346217] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.346261] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.346296] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.346375] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[0.346415] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/dds_fastrtps\n'}
+[0.346480] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[0.346519] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_fastrtps_cpp.so\n'}
+[0.346571] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.346640] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.346683] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.346740] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__rosidl_typesupport_introspection_c.h\n'}
+[0.346775] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__type_support.c\n'}
+[0.346812] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[0.346846] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_introspection_c.so\n'}
+[0.346936] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_c.so\n'}
+[0.346975] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg\n'}
+[0.347008] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg\n'}
+[0.347040] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail\n'}
+[0.347106] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__type_support.cpp\n'}
+[0.347140] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/include/rslidar_msg/rslidar_msg/msg/detail/rslidar_packet__rosidl_typesupport_introspection_cpp.hpp\n'}
+[0.347195] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_introspection_cpp.so\n'}
+[0.347226] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_typesupport_cpp.so\n'}
+[0.347256] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/pythonpath.sh\n'}
+[0.347287] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/pythonpath.dsv\n'}
+[0.347317] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg-0.0.0-py3.12.egg-info\n'}
+[0.347347] (rslidar_msg) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg-0.0.0-py3.12.egg-info/PKG-INFO\n'}
+[0.347378] (rslidar_msg) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg-0.0.0-py3.12.egg-info/dependency_links.txt\n'}
+[0.347409] (rslidar_msg) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg-0.0.0-py3.12.egg-info/top_level.txt\n'}
+[0.347439] (rslidar_msg) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg-0.0.0-py3.12.egg-info/SOURCES.txt\n'}
+[0.347468] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg\n'}
+[0.347503] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/_rslidar_msg_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[0.347534] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/_rslidar_msg_s.ep.rosidl_typesupport_c.c\n'}
+[0.347564] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_c.so\n'}
+[0.347594] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/msg\n'}
+[0.347652] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/msg/_rslidar_packet.py\n'}
+[0.347684] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/msg/_rslidar_packet_s.c\n'}
+[0.347714] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/msg/__init__.py\n'}
+[0.347744] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/__init__.py\n'}
+[0.347773] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_fastrtps_c.so\n'}
+[0.347805] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_introspection_c.so\n'}
+[0.347835] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/_rslidar_msg_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[0.375642] (rslidar_msg) StdoutLine: {'line': b"Listing '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg'...\n"}
+[0.375817] (rslidar_msg) StdoutLine: {'line': b"Listing '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/msg'...\n"}
+[0.381316] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_fastrtps_c.so\n'}
+[0.381497] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_introspection_c.so\n'}
+[0.381598] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages/rslidar_msg/rslidar_msg_s__rosidl_typesupport_c.so\n'}
+[0.381692] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/lib/librslidar_msg__rosidl_generator_py.so\n'}
+[0.381785] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/ament_index/resource_index/rust_packages/rslidar_msg\n'}
+[0.381821] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust\n'}
+[0.381875] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/build.rs\n'}
+[0.381946] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/Cargo.toml\n'}
+[0.381983] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/src\n'}
+[0.382017] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/src/lib.rs\n'}
+[0.382051] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/src/msg.rs\n'}
+[0.382086] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/src/msg\n'}
+[0.382121] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/rust/src/msg/rmw.rs\n'}
+[0.382156] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/msg/RslidarPacket.idl\n'}
+[0.382189] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/msg/RslidarPacket.msg\n'}
+[0.382249] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/ament_index/resource_index/package_run_dependencies/rslidar_msg\n'}
+[0.382343] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/ament_index/resource_index/parent_prefix_path/rslidar_msg\n'}
+[0.382386] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/ament_prefix_path.sh\n'}
+[0.382426] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/ament_prefix_path.dsv\n'}
+[0.382465] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/path.sh\n'}
+[0.382546] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/environment/path.dsv\n'}
+[0.382594] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/local_setup.bash\n'}
+[0.382638] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/local_setup.sh\n'}
+[0.382674] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/local_setup.zsh\n'}
+[0.382786] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/local_setup.dsv\n'}
+[0.382824] (rslidar_msg) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/package.dsv\n'}
+[0.382859] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/ament_index/resource_index/packages/rslidar_msg\n'}
+[0.382893] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_generator_cExport.cmake\n'}
+[0.382927] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_generator_cExport-noconfig.cmake\n'}
+[0.382961] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[0.382995] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[0.383031] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_generator_cppExport.cmake\n'}
+[0.383068] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[0.383106] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[0.383147] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_introspection_cExport.cmake\n'}
+[0.383221] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[0.383254] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_cExport.cmake\n'}
+[0.383287] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[0.383319] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[0.383352] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[0.383385] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_cppExport.cmake\n'}
+[0.383419] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msg__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[0.383453] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_generator_pyExport.cmake\n'}
+[0.383486] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/export_rslidar_msg__rosidl_generator_pyExport-noconfig.cmake\n'}
+[0.383519] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rosidl_cmake-extras.cmake\n'}
+[0.383552] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[0.383585] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[0.383671] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[0.383707] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[0.383741] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[0.383775] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[0.383834] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msgConfig.cmake\n'}
+[0.383869] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake/rslidar_msgConfig-version.cmake\n'}
+[0.383902] (rslidar_msg) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/package.xml\n'}
+[0.385442] (rslidar_msg) CommandEnded: {'returncode': 0}
+[0.392244] (cone_detector) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.400144] (-) TimerEvent: {}
+[0.400729] (rslidar_msg) JobEnded: {'identifier': 'rslidar_msg', 'rc': 0}
+[0.401538] (rslidar_sdk) JobStarted: {'identifier': 'rslidar_sdk'}
+[0.407821] (rslidar_sdk) JobProgress: {'identifier': 'rslidar_sdk', 'progress': 'cmake'}
+[0.408099] (rslidar_sdk) JobProgress: {'identifier': 'rslidar_sdk', 'progress': 'build'}
+[0.408327] (rslidar_sdk) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/linfu/ros2_ws/build/rslidar_sdk', '--', '-j20', '-l20'], 'cwd': '/home/linfu/ros2_ws/build/rslidar_sdk', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_CA:en', 'USER': 'linfu', 'LC_TIME': 'en_CA.UTF-8', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib:/home/linfu/catkin_ws/install/rslidar_msg/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/linfu', 'OLDPWD': '/home/linfu/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'LC_MONETARY': 'en_CA.UTF-8', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '8754', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/linfu/ros2_ws/install:/home/linfu/catkin_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'linfu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'linfu', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/linfu/.local/bin:/opt/ros/jazzy/bin:/home/linfu/.local/bin:/home/linfu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/linfu-T15pGen3:@/tmp/.ICE-unix/8754,unix/linfu-T15pGen3:/tmp/.ICE-unix/8754', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_CA.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/458c12c0_8cc5_465d_8dad_f07521c6f17a', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_CA.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_CA.UTF-8', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.96', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_CA.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'en_CA.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_CA.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/linfu/ros2_ws/build/rslidar_sdk', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'PYLON_ROOT': '/opt/pylon', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages:/home/linfu/catkin_ws/install/rslidar_msg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'en_CA.UTF-8', 'LC_PAPER': 'en_CA.UTF-8', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'GENICAM_GENTL64_PATH': ':/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/:/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.437010] (cone_detector) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[0.465871] (rslidar_sdk) StdoutLine: {'line': b'[100%] Built target rslidar_sdk_node\n'}
+[0.476124] (rslidar_sdk) CommandEnded: {'returncode': 0}
+[0.476432] (rslidar_sdk) JobProgress: {'identifier': 'rslidar_sdk', 'progress': 'install'}
+[0.476600] (rslidar_sdk) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/linfu/ros2_ws/build/rslidar_sdk'], 'cwd': '/home/linfu/ros2_ws/build/rslidar_sdk', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_CA:en', 'USER': 'linfu', 'LC_TIME': 'en_CA.UTF-8', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib:/home/linfu/catkin_ws/install/rslidar_msg/lib:/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/linfu', 'OLDPWD': '/home/linfu/ros2_ws', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'LC_MONETARY': 'en_CA.UTF-8', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '8754', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'COLCON_PREFIX_PATH': '/home/linfu/ros2_ws/install:/home/linfu/catkin_ws/install', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'linfu', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/app-gnome\\x2dsession\\x2dmanager.slice/gnome-session-manager@ubuntu.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'linfu', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'WINDOWPATH': '2', 'PATH': '/home/linfu/.local/bin:/opt/ros/jazzy/bin:/home/linfu/.local/bin:/home/linfu/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/linfu-T15pGen3:@/tmp/.ICE-unix/8754,unix/linfu-T15pGen3:/tmp/.ICE-unix/8754', 'PAPERSIZE': 'letter', 'XDG_MENU_PREFIX': 'gnome-', 'LC_ADDRESS': 'en_CA.UTF-8', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/458c12c0_8cc5_465d_8dad_f07521c6f17a', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_CA.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'LC_TELEPHONE': 'en_CA.UTF-8', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.96', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy', 'SHELL': '/bin/bash', 'LC_NAME': 'en_CA.UTF-8', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'en_CA.UTF-8', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'LC_IDENTIFICATION': 'en_CA.UTF-8', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/linfu/ros2_ws/build/rslidar_sdk', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'PYLON_ROOT': '/opt/pylon', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=7790eb0d3ebaab525ac7a6d26a223fdb', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/linfu/ros2_ws/install/rslidar_msg/lib/python3.12/site-packages:/home/linfu/catkin_ws/install/rslidar_msg/lib/python3.12/site-packages:/opt/ros/jazzy/lib/python3.12/site-packages', 'LC_NUMERIC': 'en_CA.UTF-8', 'LC_PAPER': 'en_CA.UTF-8', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'GENICAM_GENTL64_PATH': ':/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/:/opt/pylon/lib/gentlproducer/gtl:/opt/pylon/lib/pylonCXP/bin/', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/home/linfu/ros2_ws/install/rslidar_msg:/home/linfu/ros2_ws/install/rslidar_sdk:/home/linfu/ros2_ws/install/cone_detector:/home/linfu/catkin_ws/install/rslidar_sdk:/home/linfu/catkin_ws/install/rslidar_msg:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy'}), 'shell': False}
+[0.480612] (cone_detector) StdoutLine: {'line': b'-- Found visualization_msgs: 5.3.7 (/opt/ros/jazzy/share/visualization_msgs/cmake)\n'}
+[0.481339] (rslidar_sdk) StdoutLine: {'line': b'-- Install configuration: "Release"\n'}
+[0.481448] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/lib/rslidar_sdk/rslidar_sdk_node\n'}
+[0.481579] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch\n'}
+[0.481713] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/start.py\n'}
+[0.481801] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/elequent_start.py\n'}
+[0.481919] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/humble_start.py\n'}
+[0.481998] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/start.launch\n'}
+[0.482075] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz\n'}
+[0.482156] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz/rviz2.rviz\n'}
+[0.482235] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz/rviz.rviz\n'}
+[0.482318] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/package_run_dependencies/rslidar_sdk\n'}
+[0.482396] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/parent_prefix_path/rslidar_sdk\n'}
+[0.482472] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/ament_prefix_path.sh\n'}
+[0.482554] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/ament_prefix_path.dsv\n'}
+[0.482980] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/path.sh\n'}
+[0.483091] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/path.dsv\n'}
+[0.483134] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.bash\n'}
+[0.483174] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.sh\n'}
+[0.483211] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.zsh\n'}
+[0.483249] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.dsv\n'}
+[0.483285] (rslidar_sdk) StdoutLine: {'line': b'-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/package.dsv\n'}
+[0.483321] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/packages/rslidar_sdk\n'}
+[0.483358] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/cmake/rslidar_sdkConfig.cmake\n'}
+[0.483396] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/cmake/rslidar_sdkConfig-version.cmake\n'}
+[0.483452] (rslidar_sdk) StdoutLine: {'line': b'-- Up-to-date: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/package.xml\n'}
+[0.483855] (rslidar_sdk) CommandEnded: {'returncode': 0}
+[0.493385] (rslidar_sdk) JobEnded: {'identifier': 'rslidar_sdk', 'rc': 0}
+[0.500263] (-) TimerEvent: {}
+[0.505862] (cone_detector) StdoutLine: {'line': b'-- Found tf2: 0.36.20 (/opt/ros/jazzy/share/tf2/cmake)\n'}
+[0.510557] (cone_detector) StdoutLine: {'line': b'-- Found tf2_ros: 0.36.20 (/opt/ros/jazzy/share/tf2_ros/cmake)\n'}
+[0.600531] (-) TimerEvent: {}
+[0.621527] (cone_detector) StdoutLine: {'line': b'-- Found tf2_sensor_msgs: 0.36.20 (/opt/ros/jazzy/share/tf2_sensor_msgs/cmake)\n'}
+[0.625110] (cone_detector) StdoutLine: {'line': b'-- Found pcl_conversions: 2.6.4 (/opt/ros/jazzy/share/pcl_conversions/cmake)\n'}
+[0.663855] (cone_detector) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):\n'}
+[0.664043] (cone_detector) StderrLine: {'line': b'  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT\n'}
+[0.664091] (cone_detector) StderrLine: {'line': b'  variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the\n'}
+[0.664129] (cone_detector) StderrLine: {'line': b'  cmake_policy command to set the policy and suppress this warning.\n'}
+[0.664163] (cone_detector) StderrLine: {'line': b'\n'}
+[0.664198] (cone_detector) StderrLine: {'line': b'  CMake variable FLANN_ROOT is set to:\n'}
+[0.664235] (cone_detector) StderrLine: {'line': b'\n'}
+[0.664268] (cone_detector) StderrLine: {'line': b'    /usr\n'}
+[0.664303] (cone_detector) StderrLine: {'line': b'\n'}
+[0.664336] (cone_detector) StderrLine: {'line': b'  For compatibility, find_package is ignoring the variable, but code in a\n'}
+[0.664370] (cone_detector) StderrLine: {'line': b'  .cmake module might still use it.\n'}
+[0.664404] (cone_detector) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[0.664436] (cone_detector) StderrLine: {'line': b'  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)\n'}
+[0.664467] (cone_detector) StderrLine: {'line': b'  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)\n'}
+[0.664500] (cone_detector) StderrLine: {'line': b'  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)\n'}
+[0.664533] (cone_detector) StderrLine: {'line': b'  /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)\n'}
+[0.664566] (cone_detector) StderrLine: {'line': b'  /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)\n'}
+[0.664599] (cone_detector) StderrLine: {'line': b'  CMakeLists.txt:16 (find_package)\n'}
+[0.664641] (cone_detector) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[0.664675] (cone_detector) StderrLine: {'line': b'\x1b[0m\n'}
+[0.664827] (cone_detector) StdoutLine: {'line': b'-- Found flann version 1.9.2\n'}
+[0.700787] (-) TimerEvent: {}
+[0.801156] (-) TimerEvent: {}
+[0.901402] (-) TimerEvent: {}
+[1.001821] (-) TimerEvent: {}
+[1.028863] (cone_detector) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[1.035377] (cone_detector) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[1.101993] (-) TimerEvent: {}
+[1.202438] (-) TimerEvent: {}
+[1.302838] (-) TimerEvent: {}
+[1.403167] (-) TimerEvent: {}
+[1.411480] (cone_detector) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[1.416503] (cone_detector) StdoutLine: {'line': b'-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)\n'}
+[1.503247] (-) TimerEvent: {}
+[1.603527] (-) TimerEvent: {}
+[1.703991] (-) TimerEvent: {}
+[1.733104] (cone_detector) StdoutLine: {'line': b'-- Found Qhull version 8.0.2\n'}
+[1.804140] (-) TimerEvent: {}
+[1.904415] (-) TimerEvent: {}
+[2.004687] (-) TimerEvent: {}
+[2.091290] (cone_detector) StdoutLine: {'line': b'-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)\n'}
+[2.104778] (-) TimerEvent: {}
+[2.205041] (-) TimerEvent: {}
+[2.305265] (-) TimerEvent: {}
+[2.405515] (-) TimerEvent: {}
+[2.444594] (cone_detector) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at CMakeLists.txt:17 (find_package):\n'}
+[2.444717] (cone_detector) StderrLine: {'line': b'  Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.\n'}
+[2.444758] (cone_detector) StderrLine: {'line': b'  Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy\n'}
+[2.444794] (cone_detector) StderrLine: {'line': b'  command to set the policy and suppress this warning.\n'}
+[2.444828] (cone_detector) StderrLine: {'line': b'\n'}
+[2.444862] (cone_detector) StderrLine: {'line': b'  CMake variable PCL_ROOT is set to:\n'}
+[2.444895] (cone_detector) StderrLine: {'line': b'\n'}
+[2.444928] (cone_detector) StderrLine: {'line': b'    /usr\n'}
+[2.444985] (cone_detector) StderrLine: {'line': b'\n'}
+[2.445018] (cone_detector) StderrLine: {'line': b'  For compatibility, CMake is ignoring the variable.\n'}
+[2.445051] (cone_detector) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[2.445083] (cone_detector) StderrLine: {'line': b'\x1b[0m\n'}
+[2.505600] (-) TimerEvent: {}
+[2.524950] (cone_detector) StdoutLine: {'line': b'-- Configuring done (2.5s)\n'}
+[2.557673] (cone_detector) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[2.563100] (cone_detector) StdoutLine: {'line': b'-- Build files have been written to: /home/linfu/ros2_ws/build/cone_detector\n'}
+[2.605811] (-) TimerEvent: {}
+[2.630321] (cone_detector) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/cone_detector_node.dir/src/cone_detector_node.cpp.o\x1b[0m\n'}
+[2.705966] (-) TimerEvent: {}
+[2.806416] (-) TimerEvent: {}
+[2.906847] (-) TimerEvent: {}
+[3.007374] (-) TimerEvent: {}
+[3.107826] (-) TimerEvent: {}
+[3.208339] (-) TimerEvent: {}
+[3.308735] (-) TimerEvent: {}
+[3.409000] (-) TimerEvent: {}
+[3.509300] (-) TimerEvent: {}
+[3.609793] (-) TimerEvent: {}
+[3.710171] (-) TimerEvent: {}
+[3.810693] (-) TimerEvent: {}
+[3.911108] (-) TimerEvent: {}
+[4.011426] (-) TimerEvent: {}
+[4.111872] (-) TimerEvent: {}
+[4.212130] (-) TimerEvent: {}
+[4.312521] (-) TimerEvent: {}
+[4.412949] (-) TimerEvent: {}
+[4.513152] (-) TimerEvent: {}
+[4.613466] (-) TimerEvent: {}
+[4.713981] (-) TimerEvent: {}
+[4.814535] (-) TimerEvent: {}
+[4.915000] (-) TimerEvent: {}
+[5.015338] (-) TimerEvent: {}
+[5.115654] (-) TimerEvent: {}
+[5.216177] (-) TimerEvent: {}
+[5.316623] (-) TimerEvent: {}
+[5.416932] (-) TimerEvent: {}
+[5.517167] (-) TimerEvent: {}
+[5.617523] (-) TimerEvent: {}
+[5.717827] (-) TimerEvent: {}
+[5.818200] (-) TimerEvent: {}
+[5.918763] (-) TimerEvent: {}
+[6.019341] (-) TimerEvent: {}
+[6.119813] (-) TimerEvent: {}
+[6.220258] (-) TimerEvent: {}
+[6.320827] (-) TimerEvent: {}
+[6.421306] (-) TimerEvent: {}
+[6.521684] (-) TimerEvent: {}
+[6.622157] (-) TimerEvent: {}
+[6.722570] (-) TimerEvent: {}
+[6.823140] (-) TimerEvent: {}
+[6.923566] (-) TimerEvent: {}
+[7.023953] (-) TimerEvent: {}
+[7.124451] (-) TimerEvent: {}
+[7.225338] (-) TimerEvent: {}
+[7.325842] (-) TimerEvent: {}
+[7.333703] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:\x1b[m\x1b[K In constructor \xe2\x80\x98\x1b[01m\x1b[KConeDetector::\x1b[01;32m\x1b[KConeDetector\x1b[m\x1b[K()\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[7.333976] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:45:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktarget_frame_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.334084] (cone_detector) StderrLine: {'line': b'   45 |     \x1b[01;31m\x1b[Ktarget_frame_\x1b[m\x1b[K = declare_parameter<std::string>("target_frame", "base_link");\n'}
+[7.334181] (cone_detector) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.347416] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:67:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktf_buffer_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.347671] (cone_detector) StderrLine: {'line': b'   67 |     \x1b[01;31m\x1b[Ktf_buffer_\x1b[m\x1b[K = std::make_unique<tf2_ros::Buffer>(get_clock());\n'}
+[7.348059] (cone_detector) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.366250] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:68:5:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktf_listener_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.366415] (cone_detector) StderrLine: {'line': b'   68 |     \x1b[01;31m\x1b[Ktf_listener_\x1b[m\x1b[K = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);\n'}
+[7.366455] (cone_detector) StderrLine: {'line': b'      |     \x1b[01;31m\x1b[K^~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.388055] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:\x1b[m\x1b[K In member function \xe2\x80\x98\x1b[01m\x1b[Kvoid ConeDetector::\x1b[01;32m\x1b[KonCloud\x1b[m\x1b[K(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::SharedPtr)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[7.388195] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:92:17:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktf_buffer_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.388236] (cone_detector) StderrLine: {'line': b'   92 |       auto tf = \x1b[01;31m\x1b[Ktf_buffer_\x1b[m\x1b[K->lookupTransform(\n'}
+[7.388271] (cone_detector) StderrLine: {'line': b'      |                 \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.400368] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:93:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktarget_frame_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.400493] (cone_detector) StderrLine: {'line': b'   93 |         \x1b[01;31m\x1b[Ktarget_frame_\x1b[m\x1b[K, msg->header.frame_id, tf2::TimePointZero);\n'}
+[7.400533] (cone_detector) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.412327] (cone_detector) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/opt/ros/jazzy/include/rclcpp/rclcpp/logging.hpp:24\x1b[m\x1b[K,\n'}
+[7.412437] (cone_detector) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/jazzy/include/rclcpp/rclcpp/copy_all_parameter_values.hpp:27\x1b[m\x1b[K,\n'}
+[7.412477] (cone_detector) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/opt/ros/jazzy/include/rclcpp/rclcpp/rclcpp.hpp:171\x1b[m\x1b[K,\n'}
+[7.412514] (cone_detector) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:13\x1b[m\x1b[K:\n'}
+[7.412550] (cone_detector) StderrLine: {'line': b'\x1b[01m\x1b[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:98:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Ktarget_frame_\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[7.412588] (cone_detector) StderrLine: {'line': b'   98 |         \x1b[01;31m\x1b[Ktarget_frame_\x1b[m\x1b[K.c_str(), msg->header.frame_id.c_str(), ex.what());\n'}
+[7.412647] (cone_detector) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[7.426014] (-) TimerEvent: {}
+[7.526295] (-) TimerEvent: {}
+[7.626759] (-) TimerEvent: {}
+[7.727255] (-) TimerEvent: {}
+[7.827789] (-) TimerEvent: {}
+[7.928216] (-) TimerEvent: {}
+[8.028626] (-) TimerEvent: {}
+[8.129139] (-) TimerEvent: {}
+[8.229644] (-) TimerEvent: {}
+[8.329978] (-) TimerEvent: {}
+[8.430311] (-) TimerEvent: {}
+[8.530690] (-) TimerEvent: {}
+[8.630967] (-) TimerEvent: {}
+[8.731264] (-) TimerEvent: {}
+[8.831733] (-) TimerEvent: {}
+[8.932320] (-) TimerEvent: {}
+[9.032845] (-) TimerEvent: {}
+[9.133338] (-) TimerEvent: {}
+[9.233903] (-) TimerEvent: {}
+[9.334409] (-) TimerEvent: {}
+[9.434778] (-) TimerEvent: {}
+[9.535060] (-) TimerEvent: {}
+[9.635398] (-) TimerEvent: {}
+[9.735697] (-) TimerEvent: {}
+[9.836008] (-) TimerEvent: {}
+[9.936480] (-) TimerEvent: {}
+[10.036884] (-) TimerEvent: {}
+[10.137265] (-) TimerEvent: {}
+[10.237716] (-) TimerEvent: {}
+[10.338270] (-) TimerEvent: {}
+[10.438764] (-) TimerEvent: {}
+[10.539087] (-) TimerEvent: {}
+[10.639465] (-) TimerEvent: {}
+[10.740017] (-) TimerEvent: {}
+[10.840465] (-) TimerEvent: {}
+[10.941039] (-) TimerEvent: {}
+[11.041488] (-) TimerEvent: {}
+[11.142035] (-) TimerEvent: {}
+[11.242440] (-) TimerEvent: {}
+[11.342802] (-) TimerEvent: {}
+[11.443313] (-) TimerEvent: {}
+[11.497885] (cone_detector) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/cone_detector_node.dir/build.make:76: CMakeFiles/cone_detector_node.dir/src/cone_detector_node.cpp.o] Error 1\n'}
+[11.498186] (cone_detector) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/cone_detector_node.dir/all] Error 2\n'}
+[11.498410] (cone_detector) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[11.501106] (cone_detector) CommandEnded: {'returncode': 2}
+[11.505599] (cone_detector) JobEnded: {'identifier': 'cone_detector', 'rc': 2}
+[11.516792] (-) EventReactorShutdown: {}

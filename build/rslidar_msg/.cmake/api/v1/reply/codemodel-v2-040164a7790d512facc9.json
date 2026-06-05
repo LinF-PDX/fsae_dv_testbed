@@ -1,0 +1,267 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-84faaba11ef0514d3cfd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				},
+				{
+					"build" : "rslidar_msg__py",
+					"jsonFile" : "directory-rslidar_msg__py-b1501cb9168bf6448e86.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/linfu/ros2_ws/build/rslidar_msg/rslidar_msg__py",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "rslidar_msg__rs",
+					"jsonFile" : "directory-rslidar_msg__rs-0d4ac2f65b1077eab9ad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/linfu/ros2_ws/build/rslidar_msg/rslidar_msg__rs",
+					"targetIndexes" : 
+					[
+						14
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "rslidar_msg",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_rslidar_msg_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_rslidar_msg_egg-dae8d3027d07537ad863.json",
+					"name" : "ament_cmake_python_build_rslidar_msg_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_rslidar_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_rslidar_msg-c83e6270531994382bc0.json",
+					"name" : "ament_cmake_python_copy_rslidar_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg-8b1fedf4ca22e9ff2ed7.json",
+					"name" : "rslidar_msg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__cpp-2b3ca9084876c9ea4054.json",
+					"name" : "rslidar_msg__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "rslidar_msg__py::@c80b5731effdf274c015",
+					"jsonFile" : "target-rslidar_msg__py-a5707bf52d6ce4ec441e.json",
+					"name" : "rslidar_msg__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_generator_c-b2881f068796782bf328.json",
+					"name" : "rslidar_msg__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_generator_py-4763ab6edefd53ef852f.json",
+					"name" : "rslidar_msg__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_generator_type_description::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_generator_type_description-dc608097e6b116b2c10e.json",
+					"name" : "rslidar_msg__rosidl_generator_type_description",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_c-969f601b3527b50548b1.json",
+					"name" : "rslidar_msg__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_cpp-1f872746b23a429846a8.json",
+					"name" : "rslidar_msg__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_fastrtps_c-87ac2eebe72480306181.json",
+					"name" : "rslidar_msg__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_fastrtps_cpp-bc5d684f182702dd8902.json",
+					"name" : "rslidar_msg__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_introspection_c-36ecd69f1d677e5dd913.json",
+					"name" : "rslidar_msg__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg__rosidl_typesupport_introspection_cpp-edc9062fa67f6032d558.json",
+					"name" : "rslidar_msg__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "rslidar_msg__rs::@007bbb4039ef85ea2fb6",
+					"jsonFile" : "target-rslidar_msg__rs-9f3dcdf3a97a97f5073f.json",
+					"name" : "rslidar_msg__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg_s__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg_s__rosidl_typesupport_c-524db22f97310a8b3b86.json",
+					"name" : "rslidar_msg_s__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg_s__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg_s__rosidl_typesupport_fastrtps_c-de3ea74059164a9cceff.json",
+					"name" : "rslidar_msg_s__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg_s__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg_s__rosidl_typesupport_introspection_c-09e0af5c9d6f081b0946.json",
+					"name" : "rslidar_msg_s__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "rslidar_msg_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-rslidar_msg_uninstall-485ea3e7bf735302d549.json",
+					"name" : "rslidar_msg_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-f95db1942df3259a4577.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/linfu/ros2_ws/build/rslidar_msg",
+		"source" : "/home/linfu/ros2_ws/src/rslidar_msg-master"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

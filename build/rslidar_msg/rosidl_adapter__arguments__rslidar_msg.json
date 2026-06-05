@@ -1,0 +1,6 @@
+{
+  "package_name": "rslidar_msg",
+  "non_idl_tuples": [
+    "/home/linfu/ros2_ws/src/rslidar_msg-master:msg/RslidarPacket.msg"
+  ]
+}

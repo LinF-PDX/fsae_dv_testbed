@@ -1,0 +1,3 @@
+[submodule "rslidar_sdk"]
+	path = rslidar_sdk
+	url = https://github.com/RoboSense-LiDAR/rslidar_sdk.git

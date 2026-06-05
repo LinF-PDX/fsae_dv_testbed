@@ -1,0 +1,72 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+[0m=============================================================[0m
+[0m-- POINT_TYPE is XYZI[0m
+[0m=============================================================[0m
+[0m=============================================================[0m
+[0m-- ROS Not Found. ROS Support is turned Off.[0m
+[0m=============================================================[0m
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0m=============================================================[0m
+[0m-- ROS2 Found. ROS2 Support is turned On.[0m
+[0m=============================================================[0m
+-- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+-- Found rslidar_msg: 0.0.0 (/home/linfu/ros2_ws/install/rslidar_msg/share/rslidar_msg/cmake)
+[0m=============================================================[0m
+[0m-- CMake run for UNIX GNU Compiler[0m
+[0m=============================================================[0m
+[0m=============================================================[0m
+[0m-- rs_driver Version : v1.5.19[0m
+[0m=============================================================[0m
+-- Configuring done (1.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/linfu/ros2_ws/build/rslidar_sdk
+[ 66%] [32mBuilding CXX object CMakeFiles/rslidar_sdk_node.dir/src/manager/node_manager.cpp.o[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/rslidar_sdk_node.dir/node/rslidar_sdk_node.cpp.o[0m
+[100%] [32m[1mLinking CXX executable rslidar_sdk_node[0m
+[100%] Built target rslidar_sdk_node
+-- Install configuration: "Release"
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/lib/rslidar_sdk/rslidar_sdk_node
+-- Set non-toolchain portion of runtime path of "/home/linfu/ros2_ws/install/rslidar_sdk/lib/rslidar_sdk/rslidar_sdk_node" to ""
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/start.py
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/elequent_start.py
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/humble_start.py
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/launch/start.launch
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz/rviz2.rviz
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/rviz/rviz.rviz
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/package_run_dependencies/rslidar_sdk
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/parent_prefix_path/rslidar_sdk
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/ament_prefix_path.sh
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/ament_prefix_path.dsv
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/path.sh
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/environment/path.dsv
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.bash
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.sh
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.zsh
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/local_setup.dsv
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/package.dsv
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/ament_index/resource_index/packages/rslidar_sdk
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/cmake/rslidar_sdkConfig.cmake
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/cmake/rslidar_sdkConfig-version.cmake
+-- Installing: /home/linfu/ros2_ws/install/rslidar_sdk/share/rslidar_sdk/package.xml

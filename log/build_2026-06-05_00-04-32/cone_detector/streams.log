@@ -1,0 +1,85 @@
+[0.016s] Invoking command in '/home/linfu/ros2_ws/build/cone_detector': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/linfu/ros2_ws/build/cone_detector -- -j20 -l20
+[0.046s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.302s] -- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.339s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.351s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.367s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.385s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.470s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.472s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.576s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.669s] -- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.752s] -- Found visualization_msgs: 5.3.7 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+[0.795s] -- Found pcl_conversions: 2.6.4 (/opt/ros/jazzy/share/pcl_conversions/cmake)
+[0.872s] [33mCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):
+[0.873s]   Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+[0.873s]   variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+[0.873s]   cmake_policy command to set the policy and suppress this warning.
+[0.873s] 
+[0.873s]   CMake variable FLANN_ROOT is set to:
+[0.873s] 
+[0.873s]     /usr
+[0.873s] 
+[0.873s]   For compatibility, find_package is ignoring the variable, but code in a
+[0.873s]   .cmake module might still use it.
+[0.873s] Call Stack (most recent call first):
+[0.873s]   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+[0.873s]   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+[0.874s]   /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+[0.874s]   /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+[0.874s]   /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+[0.874s]   CMakeLists.txt:13 (find_package)
+[0.874s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[0.874s] [0m
+[0.874s] -- Found flann version 1.9.2
+[1.454s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[1.463s] -- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+[2.080s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[2.087s] -- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+[2.584s] -- Found Qhull version 8.0.2
+[3.141s] -- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[3.681s] [33mCMake Warning (dev) at CMakeLists.txt:14 (find_package):
+[3.681s]   Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+[3.681s]   Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+[3.681s]   command to set the policy and suppress this warning.
+[3.681s] 
+[3.681s]   CMake variable PCL_ROOT is set to:
+[3.681s] 
+[3.681s]     /usr
+[3.681s] 
+[3.681s]   For compatibility, CMake is ignoring the variable.
+[3.681s] This warning is for project developers.  Use -Wno-dev to suppress it.
+[3.682s] [0m
+[3.838s] -- Configuring done (3.8s)
+[3.886s] -- Generating done (0.0s)
+[3.893s] -- Build files have been written to: /home/linfu/ros2_ws/build/cone_detector
+[3.975s] gmake[2]: Warning: File '/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp' has modification time 11541 s in the future
+[3.993s] [ 50%] [32mBuilding CXX object CMakeFiles/cone_detector_node.dir/src/cone_detector_node.cpp.o[0m
+[20.717s] [100%] [32m[1mLinking CXX executable cone_detector_node[0m
+[22.717s] gmake[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[22.729s] [100%] Built target cone_detector_node
+[22.747s] Invoked command in '/home/linfu/ros2_ws/build/cone_detector' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/linfu/ros2_ws/build/cone_detector -- -j20 -l20
+[22.749s] Invoking command in '/home/linfu/ros2_ws/build/cone_detector': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/linfu/ros2_ws/build/cone_detector
+[22.759s] -- Install configuration: ""
+[22.759s] -- Installing: /home/linfu/ros2_ws/install/cone_detector/lib/cone_detector/cone_detector_node
+[22.766s] -- Set non-toolchain portion of runtime path of "/home/linfu/ros2_ws/install/cone_detector/lib/cone_detector/cone_detector_node" to ""
+[22.766s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/launch
+[22.766s] -- Installing: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/launch/cone_detector.launch.py
+[22.766s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/config
+[22.766s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/config/params.yaml
+[22.766s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/ament_index/resource_index/package_run_dependencies/cone_detector
+[22.766s] -- Installing: /home/linfu/ros2_ws/install/cone_detector/share/ament_index/resource_index/parent_prefix_path/cone_detector
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/environment/ament_prefix_path.sh
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/environment/ament_prefix_path.dsv
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/environment/path.sh
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/environment/path.dsv
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/local_setup.bash
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/local_setup.sh
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/local_setup.zsh
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/local_setup.dsv
+[22.767s] -- Installing: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/package.dsv
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/ament_index/resource_index/packages/cone_detector
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/cmake/cone_detectorConfig.cmake
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/cmake/cone_detectorConfig-version.cmake
+[22.767s] -- Up-to-date: /home/linfu/ros2_ws/install/cone_detector/share/cone_detector/package.xml
+[22.769s] Invoked command in '/home/linfu/ros2_ws/build/cone_detector' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/linfu/ros2_ws/build/cone_detector

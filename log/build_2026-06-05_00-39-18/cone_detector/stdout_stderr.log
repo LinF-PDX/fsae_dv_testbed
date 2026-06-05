@@ -1,0 +1,85 @@
+-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+-- Found visualization_msgs: 5.3.7 (/opt/ros/jazzy/share/visualization_msgs/cmake)
+-- Found tf2: 0.36.20 (/opt/ros/jazzy/share/tf2/cmake)
+-- Found tf2_ros: 0.36.20 (/opt/ros/jazzy/share/tf2_ros/cmake)
+-- Found tf2_sensor_msgs: 0.36.20 (/opt/ros/jazzy/share/tf2_sensor_msgs/cmake)
+-- Found pcl_conversions: 2.6.4 (/opt/ros/jazzy/share/pcl_conversions/cmake)
+[33mCMake Warning (dev) at /usr/lib/x86_64-linux-gnu/cmake/pcl/Modules/FindFLANN.cmake:45 (find_package):
+  Policy CMP0144 is not set: find_package uses upper-case <PACKAGENAME>_ROOT
+  variables.  Run "cmake --help-policy CMP0144" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+
+  CMake variable FLANN_ROOT is set to:
+
+    /usr
+
+  For compatibility, find_package is ignoring the variable, but code in a
+  .cmake module might still use it.
+Call Stack (most recent call first):
+  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:261 (find_package)
+  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:306 (find_flann)
+  /usr/lib/x86_64-linux-gnu/cmake/pcl/PCLConfig.cmake:570 (find_external_library)
+  /opt/ros/jazzy/share/pcl_conversions/cmake/ament_cmake_export_dependencies-extras.cmake:21 (find_package)
+  /opt/ros/jazzy/share/pcl_conversions/cmake/pcl_conversionsConfig.cmake:41 (include)
+  CMakeLists.txt:16 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+[0m
+-- Found flann version 1.9.2
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+-- OpenNI2 found (version: 2.2.0.33, include: /usr/include/openni2, lib: /usr/lib/x86_64-linux-gnu/libOpenNI2.so;libusb::libusb)
+-- Found Qhull version 8.0.2
+-- OpenNI found (version: 1.5.4.0, include: /usr/include/ni, lib: /usr/lib/libOpenNI.so;libusb::libusb)
+[33mCMake Warning (dev) at CMakeLists.txt:17 (find_package):
+  Policy CMP0074 is not set: find_package uses <PackageName>_ROOT variables.
+  Run "cmake --help-policy CMP0074" for policy details.  Use the cmake_policy
+  command to set the policy and suppress this warning.
+
+  CMake variable PCL_ROOT is set to:
+
+    /usr
+
+  For compatibility, CMake is ignoring the variable.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+[0m
+-- Configuring done (2.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/linfu/ros2_ws/build/cone_detector
+[ 50%] [32mBuilding CXX object CMakeFiles/cone_detector_node.dir/src/cone_detector_node.cpp.o[0m
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:[m[K In constructor ‘[01m[KConeDetector::[01;32m[KConeDetector[m[K()[m[K’:
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:45:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktarget_frame_[m[K’ was not declared in this scope
+   45 |     [01;31m[Ktarget_frame_[m[K = declare_parameter<std::string>("target_frame", "base_link");
+      |     [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:67:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf_buffer_[m[K’ was not declared in this scope
+   67 |     [01;31m[Ktf_buffer_[m[K = std::make_unique<tf2_ros::Buffer>(get_clock());
+      |     [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:68:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf_listener_[m[K’ was not declared in this scope
+   68 |     [01;31m[Ktf_listener_[m[K = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
+      |     [01;31m[K^~~~~~~~~~~~[m[K
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:[m[K In member function ‘[01m[Kvoid ConeDetector::[01;32m[KonCloud[m[K(sensor_msgs::msg::PointCloud2_<std::allocator<void> >::SharedPtr)[m[K’:
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:92:17:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf_buffer_[m[K’ was not declared in this scope
+   92 |       auto tf = [01;31m[Ktf_buffer_[m[K->lookupTransform(
+      |                 [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:93:9:[m[K [01;31m[Kerror: [m[K‘[01m[Ktarget_frame_[m[K’ was not declared in this scope
+   93 |         [01;31m[Ktarget_frame_[m[K, msg->header.frame_id, tf2::TimePointZero);
+      |         [01;31m[K^~~~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/logging.hpp:24[m[K,
+                 from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/copy_all_parameter_values.hpp:27[m[K,
+                 from [01m[K/opt/ros/jazzy/include/rclcpp/rclcpp/rclcpp.hpp:171[m[K,
+                 from [01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:13[m[K:
+[01m[K/home/linfu/ros2_ws/src/cone_detector/src/cone_detector_node.cpp:98:9:[m[K [01;31m[Kerror: [m[K‘[01m[Ktarget_frame_[m[K’ was not declared in this scope
+   98 |         [01;31m[Ktarget_frame_[m[K.c_str(), msg->header.frame_id.c_str(), ex.what());
+      |         [01;31m[K^~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/cone_detector_node.dir/build.make:76: CMakeFiles/cone_detector_node.dir/src/cone_detector_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/cone_detector_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,11 @@
+{
+  "package_name": "rslidar_msg",
+  "output_dir": "/home/linfu/ros2_ws/build/rslidar_msg/rosidl_generator_type_description/rslidar_msg",
+  "idl_tuples": [
+    "/home/linfu/ros2_ws/build/rslidar_msg/rosidl_adapter/rslidar_msg:msg/RslidarPacket.idl"
+  ],
+  "include_paths": [
+    "builtin_interfaces:/opt/ros/jazzy/share/builtin_interfaces",
+    "std_msgs:/opt/ros/jazzy/share/std_msgs"
+  ]
+}

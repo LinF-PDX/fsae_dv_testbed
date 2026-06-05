@@ -1,0 +1,30 @@
+cone_detector:
+  ros__parameters:
+    # The cloud is transformed into this frame before processing (z = up).
+    target_frame: base_link
+
+    # Region of interest, in target_frame (metres). x: forward, y: left, z: up.
+    crop_min_x: 0.0
+    crop_max_x: 6.0
+    crop_min_y: -3.0
+    crop_max_y: 3.0
+    # Floor is at z = 0 in base_link. Keep just above the floor up to cup height.
+    crop_min_z: 0.02
+    crop_max_z: 0.13
+
+    # Downsampling. Smaller leaf keeps distant cups but costs CPU.
+    voxel_leaf: 0.02
+
+    # Euclidean clustering.
+    cluster_tolerance: 0.05   # points within 5 cm group together
+    min_cluster_size: 3
+    max_cluster_size: 300
+
+    # Shape gate for a cup-sized object (metres).
+    min_footprint: 0.03
+    max_footprint: 0.15
+    min_height: 0.03
+    max_height: 0.15
+
+    # Publish intermediate clouds on /debug/* for RViz tuning.
+    publish_debug: true
