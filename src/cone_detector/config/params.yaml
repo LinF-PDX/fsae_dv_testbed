@@ -4,27 +4,30 @@ cone_detector:
     target_frame: base_link
 
     # Region of interest, in target_frame (metres). x: forward, y: left, z: up.
-    crop_min_x: 0.0
-    crop_max_x: 6.0
-    crop_min_y: -3.0
-    crop_max_y: 3.0
-    # Floor is at z = 0 in base_link. Keep just above the floor up to cup height.
-    crop_min_z: 0.02
-    crop_max_z: 0.13
+    # Tightened to the actual play area to exclude background (stairs, TV, walls).
+    crop_min_x: 0.3
+    crop_max_x: 3.5
+    crop_min_y: -1.0      # WIDENED — ±0.7 was cropping out your outer cones
+    crop_max_y: 1.0
+    crop_min_z: 0.08      # KEY: cones are 24cm tall, so crop ground hard. Kills merging.
+    crop_max_z: 0.35
 
-    # Downsampling. Smaller leaf keeps distant cups but costs CPU.
-    voxel_leaf: 0.02
-
-    # Euclidean clustering.
-    cluster_tolerance: 0.05   # points within 5 cm group together
+    voxel_leaf: 0.01
+    cluster_tolerance: 0.06   # tighter, so a cone won't bridge to nearby clutter
     min_cluster_size: 3
-    max_cluster_size: 300
+    max_cluster_size: 400
 
-    # Shape gate for a cup-sized object (metres).
-    min_footprint: 0.03
-    max_footprint: 0.15
-    min_height: 0.03
-    max_height: 0.15
+    # Shape gate. Start permissive so real cans pass; tighten using the numbers
+    # printed in the terminal / shown on /debug/cluster_info markers.
+    min_footprint: 0.0
+    max_footprint: 0.2   # was 0.12; one far cone sat at 0.13
+    min_height: 0.05      # ground is removed by crop_min_z now, so this can be loose
+    max_height: 0.40
+    max_aspect: 4.0
+
+    # Diagnostics: log every cluster's dimensions and show labelled boxes in RViz.
+    # Turn OFF (false) once tuned, for clean output and a bit more speed.
+    diagnostic: true
 
     # Publish intermediate clouds on /debug/* for RViz tuning.
     publish_debug: true
