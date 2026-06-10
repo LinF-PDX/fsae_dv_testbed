@@ -36,6 +36,21 @@ ament_target_dependencies(cone_detector_node
 install(TARGETS cone_detector_node
   DESTINATION lib/${PROJECT_NAME})
 
+find_package(tf2_geometry_msgs REQUIRED)
+
+add_executable(cone_mapper_node src/cone_mapper_node.cpp)
+ament_target_dependencies(cone_mapper_node
+  rclcpp
+  geometry_msgs
+  visualization_msgs
+  tf2
+  tf2_ros
+  tf2_geometry_msgs
+)
+
+install(TARGETS cone_mapper_node
+  DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY launch config
   DESTINATION share/${PROJECT_NAME})
 

@@ -59,12 +59,14 @@ public:
     min_cluster_size_  = declare_parameter<int>("min_cluster_size", 3);
     max_cluster_size_  = declare_parameter<int>("max_cluster_size", 300);
 
-    // Shape gate: a cup-sized cluster. Footprint = horizontal extent, height = vertical.
-    min_footprint_ = declare_parameter<double>("min_footprint", 0.03);
-    max_footprint_ = declare_parameter<double>("max_footprint", 0.15);
-    min_height_    = declare_parameter<double>("min_height", 0.03);
-    max_height_    = declare_parameter<double>("max_height", 0.15);
-    max_aspect_    = declare_parameter<double>("max_aspect", 4.0);
+    // Shape gate. min_top_z (highest point of cluster above floor) is the main
+    // discriminator for tall cones vs leaked ground; extent gates are secondary.
+    min_footprint_ = declare_parameter<double>("min_footprint", 0.0);
+    max_footprint_ = declare_parameter<double>("max_footprint", 0.20);
+    min_height_    = declare_parameter<double>("min_height", 0.02);
+    max_height_    = declare_parameter<double>("max_height", 0.40);
+    min_top_z_     = declare_parameter<double>("min_top_z", 0.14);
+    max_aspect_    = declare_parameter<double>("max_aspect", 10.0);
 
     publish_debug_ = declare_parameter<bool>("publish_debug", true);
     diagnostic_    = declare_parameter<bool>("diagnostic", true);
@@ -107,6 +109,12 @@ private:
 
     CloudT::Ptr cloud(new CloudT);
     pcl::fromROSMsg(cloud_tf, *cloud);
+    // rslidar may emit NaN-padded (non-dense) clouds; KdTree clustering on NaNs
+    // is undefined behaviour, so strip them explicitly.
+    {
+      std::vector<int> keep;
+      pcl::removeNaNFromPointCloud(*cloud, *cloud, keep);
+    }
     if (cloud->empty()) return;
 
     // --- 1. Crop to ROI (also removes ground + ceiling via z bounds) ---
@@ -120,13 +128,18 @@ private:
     }
     if (cropped->empty()) return;
 
-    // --- 2. Voxel-grid downsample (evens out density, speeds up clustering) ---
-    CloudT::Ptr ds(new CloudT);
-    {
+    // --- 2. Optional voxel downsample. voxel_leaf <= 0 disables it. ---
+    // Downsampling thins far cones (already few points), so for this cloud
+    // size on a laptop we default to OFF and cluster the raw cropped cloud.
+    CloudT::Ptr ds;
+    if (voxel_leaf_ > 0.0) {
+      ds.reset(new CloudT);
       pcl::VoxelGrid<PointT> vg;
       vg.setInputCloud(cropped);
       vg.setLeafSize(voxel_leaf_, voxel_leaf_, voxel_leaf_);
       vg.filter(*ds);
+    } else {
+      ds = cropped;
     }
     if (ds->empty()) return;
 
@@ -179,28 +192,34 @@ private:
       const double width  = max_pt.x() - min_pt.x();
       const double depth  = max_pt.y() - min_pt.y();
       const double height = max_pt.z() - min_pt.z();
+      const double top    = max_pt.z();  // highest point above floor
       const double footprint = std::max(width, depth);
       const double min_dim   = std::max(1e-3, std::min(width, depth));
       const double aspect    = footprint / min_dim;
 
+      // The top-z gate is the strongest discriminator: a tall cone's points sit
+      // HIGH even when only 2 beams clip it (tiny extent), while leaked ground
+      // sits just above the crop floor. Gate on where points ARE, not extent.
       const bool footprint_ok = footprint >= min_footprint_ && footprint <= max_footprint_;
       const bool height_ok    = height    >= min_height_    && height    <= max_height_;
+      const bool top_ok       = top       >= min_top_z_;
       const bool aspect_ok    = aspect     <= max_aspect_;
-      const bool accept = footprint_ok && height_ok && aspect_ok;
+      const bool accept = footprint_ok && height_ok && top_ok && aspect_ok;
 
       // Why did it fail? (first failing gate)
       const char * reason = "ACCEPT";
       if      (!footprint_ok) reason = "foot";
+      else if (!top_ok)       reason = "top";
       else if (!height_ok)    reason = "height";
       else if (!aspect_ok)    reason = "aspect";
 
       if (diag_now) {
         RCLCPP_INFO(get_logger(),
-          "cluster @(%.2f,%.2f) n=%d w=%.3f d=%.3f h=%.3f foot=%.3f asp=%.1f -> %s",
-          centroid.x(), centroid.y(), n, width, depth, height, footprint, aspect, reason);
+          "cluster @(%.2f,%.2f) n=%d w=%.3f d=%.3f h=%.3f top=%.3f foot=%.3f asp=%.1f -> %s",
+          centroid.x(), centroid.y(), n, width, depth, height, top, footprint, aspect, reason);
         addInfoMarkers(info, info_id, cloud_tf.header, centroid,
                        width, depth, height,
-                       n, height, aspect, accept, reason);
+                       n, top, aspect, accept, reason);
       }
 
       if (!accept) continue;
@@ -306,7 +325,7 @@ private:
     txt.scale.z = 0.04;  // text height in metres
     txt.color.r = 1.0f; txt.color.g = 1.0f; txt.color.b = 1.0f; txt.color.a = 1.0f;
     char buf[96];
-    std::snprintf(buf, sizeof(buf), "n=%d h=%.2f a=%.1f %s", n, h, aspect, reason);
+    std::snprintf(buf, sizeof(buf), "n=%d t=%.2f a=%.1f %s", n, h, aspect, reason);
     txt.text = buf;
     txt.lifetime = rclcpp::Duration::from_seconds(0.5);
     arr.markers.push_back(txt);
@@ -318,7 +337,7 @@ private:
   double voxel_leaf_;
   double cluster_tolerance_;
   int min_cluster_size_, max_cluster_size_;
-  double min_footprint_, max_footprint_, min_height_, max_height_;
+  double min_footprint_, max_footprint_, min_height_, max_height_, min_top_z_;
   double max_aspect_;
   bool publish_debug_;
   bool diagnostic_;

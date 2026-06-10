@@ -4,30 +4,65 @@ cone_detector:
     target_frame: base_link
 
     # Region of interest, in target_frame (metres). x: forward, y: left, z: up.
-    # Tightened to the actual play area to exclude background (stairs, TV, walls).
-    crop_min_x: 0.3
-    crop_max_x: 3.5
-    crop_min_y: -1.0      # WIDENED — ±0.7 was cropping out your outer cones
+    # MUST cover the whole track: anything outside is invisible by definition.
+    # Sensor now sits at the robot's front, so near-field starts close.
+    crop_min_x: 0.2
+    crop_max_x: 2.5
+    crop_min_y: -1.0
     crop_max_y: 1.0
-    crop_min_z: 0.08      # KEY: cones are 24cm tall, so crop ground hard. Kills merging.
-    crop_max_z: 0.35
+    # Stacked cans are ~24 cm tall, so crop the ground hard: everything below
+    # 8 cm is deleted. This is what keeps cones from merging with the floor.
+    crop_min_z: 0.08
+    crop_max_z: 0.40
 
-    voxel_leaf: 0.01
-    cluster_tolerance: 0.06   # tighter, so a cone won't bridge to nearby clutter
-    min_cluster_size: 3
-    max_cluster_size: 400
+    # Voxel downsampling DISABLED (<= 0): it thins far cones, which already
+    # get few beam hits, and the laptop doesn't need the speedup.
+    voxel_leaf: 0.0
 
-    # Shape gate. Start permissive so real cans pass; tighten using the numbers
-    # printed in the terminal / shown on /debug/cluster_info markers.
+    # Euclidean clustering.
+    # tolerance 0.12: ring-to-ring spacing on a cone reaches ~6-8 cm at range,
+    # and 0.06 was splitting one cone into two clusters (one per ring). Track
+    # cones are >= 30 cm apart, so 0.12 cannot merge two real cones.
+    # min size 2 so far cones (few points) survive; the mapper's voting
+    # handles the noise this lets through.
+    # max size 5000: with the tilted front mount, a cone at 0.5 m is hit by
+    # many rings and can carry hundreds of points; clusters over the max are
+    # DISCARDED by PCL, so keep this generous or close cones vanish.
+    cluster_tolerance: 0.12
+    min_cluster_size: 2
+    max_cluster_size: 3000
+
+    # Shape gates. min_top_z is the workhorse: a cluster must REACH above
+    # 14 cm to be a cone. Far cones pass (their few points sit high on the
+    # can); ground leakage fails (its points sit just above the 8 cm crop).
+    min_top_z: 0.14
     min_footprint: 0.0
-    max_footprint: 0.2   # was 0.12; one far cone sat at 0.13
-    min_height: 0.05      # ground is removed by crop_min_z now, so this can be loose
-    max_height: 0.40
-    max_aspect: 4.0
+    max_footprint: 0.20
+    min_height: 0.02
+    max_height: 0.30
+    # Aspect gate effectively off; axis-aligned aspect is bearing-dependent
+    # and was rejecting real cones. Kept as a parameter for experimentation.
+    max_aspect: 10.0
 
-    # Diagnostics: log every cluster's dimensions and show labelled boxes in RViz.
-    # Turn OFF (false) once tuned, for clean output and a bit more speed.
+    # Diagnostics: log every cluster's dimensions and show labelled boxes in
+    # RViz (/debug/cluster_info). Turn off once tuned.
     diagnostic: true
-
-    # Publish intermediate clouds on /debug/* for RViz tuning.
     publish_debug: true
+
+cone_mapper:
+  ros__parameters:
+    # Frame the persistent map lives in. base_link while the robot is static;
+    # change to "odom" once wheel odometry is publishing.
+    target_frame: base_link
+
+    # A detection within this distance of an existing tracked cone is treated
+    # as the same cone (running-average position update).
+    association_radius: 0.20
+
+    # A tracked cone must be detected this many times before it is confirmed
+    # and appears in /cones/map. Higher = fewer false cones, slower to appear.
+    min_observations: 5
+
+    # Unconfirmed tracks unseen for this long are forgotten (transient noise).
+    # Confirmed cones are never forgotten.
+    forget_unconfirmed_sec: 2.0
