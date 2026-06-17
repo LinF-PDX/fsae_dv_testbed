@@ -1,1 +1,1 @@
-rclcpp;sensor_msgs;geometry_msgs;visualization_msgs;tf2;tf2_ros;tf2_sensor_msgs;pcl_conversions;libpcl-all-dev
+rclcpp;sensor_msgs;geometry_msgs;visualization_msgs;tf2;tf2_ros;tf2_sensor_msgs;tf2_geometry_msgs;pcl_conversions;libpcl-all-dev

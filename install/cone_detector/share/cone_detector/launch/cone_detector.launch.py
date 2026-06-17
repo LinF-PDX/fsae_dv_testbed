@@ -11,15 +11,20 @@ def generate_launch_description():
 
     return LaunchDescription([
         # LiDAR mount: base_link -> rslidar.
-        # Airy is rotated +90 deg about Y (pitch = 1.5708). If the floor ends up
-        # ABOVE the robot in RViz, flip the sign to -1.5708. Set z to mount height.
+        # 45-degree front mount: dome faces up-forward, scan-pattern pole at
+        # 45 deg elevation (its sparse central hole points at the ceiling, not
+        # at far cones). Mounted at the front of the robot, ~10 cm above floor.
+        # MEASURE and update: --x (fore-aft offset of sensor optical centre
+        # from base_link origin) and --z (height of optical centre above floor).
+        # If the floor ends up tilted or above the robot in RViz, flip the
+        # pitch sign to -0.7854 and re-check.
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='lidar_tf',
             arguments=[
-                '--x', '0', '--y', '0', '--z', '0.18',
-                '--yaw', '0', '--pitch', '1.5708', '--roll', '0',
+                '--x', '0.15', '--y', '0', '--z', '0.10',
+                '--yaw', '0', '--pitch', '0.7854', '--roll', '0',
                 '--frame-id', 'base_link', '--child-frame-id', 'rslidar',
             ],
         ),
@@ -30,5 +35,12 @@ def generate_launch_description():
             output='screen',
             parameters=[params],
             remappings=[('/points', '/rslidar_points')],
+        ),
+        Node(
+            package='cone_detector',
+            executable='cone_mapper_node',
+            name='cone_mapper',
+            output='screen',
+            parameters=[params],
         ),
     ])

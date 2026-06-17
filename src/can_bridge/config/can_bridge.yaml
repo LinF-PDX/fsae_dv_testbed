@@ -1,0 +1,29 @@
+can_bridge:
+  ros__parameters:
+    # CAN message IDs (decimal). Must match the DBC / STM32 firmware.
+    cmd_can_id: 512     # 0x200 DV_Command
+    fb_can_id: 513      # 0x201 DV_Feedback
+
+    # Steering conversion: rad -> DBC units (deg * 10).
+    # Default is the exact factor: 1800/pi ≈ 572.96
+    # You should not need to change this unless the DBC scaling changes.
+    steering_scale: 572.96
+
+    # Speed conversion: m/s -> PWM.
+    # "At speed_at_max_pwm m/s, send max_pwm to the firmware."
+    # Calibrate by measuring actual speed at a known PWM and adjusting.
+    max_pwm: 1000.0
+    speed_at_max_pwm: 0.2   # 0.2 m/s = PWM 1000 (your initial estimate)
+
+    # Safety clamps in DBC units, applied after conversion.
+    max_steering_dbc: 300.0     # ±30 deg in deg*10 units
+    max_speed_pwm: 1000.0       # max PWM sent to firmware
+
+    # Input command topic. Both teleop and the future autonomous controller
+    # publish here. To add a runtime mux later:
+    #   1. Teleop publishes to /cmd/teleop
+    #   2. Controller publishes to /cmd/auto
+    #   3. A mux node forwards one to /cmd based on a button/topic
+    #   4. Change this to /cmd (the mux output)
+    # For now, both just publish directly to /cmd and you run one at a time.
+    cmd_topic: /cmd

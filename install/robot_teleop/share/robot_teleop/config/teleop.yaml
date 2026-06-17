@@ -1,0 +1,24 @@
+joy_to_ackermann:
+  ros__parameters:
+    # Which /joy axis controls what. Defaults are typical for an Xbox pad on
+    # Linux, but VERIFY with: ros2 topic echo /joy  (move a stick, see which
+    # axis index changes). Then set these to match.
+    speed_axis: 5         # left stick vertical
+    steering_axis: 0      # right stick horizontal
+
+    # Hold this button to enable driving (deadman). Default 5 = right bumper.
+    # Set to -1 to disable the deadman (NOT recommended for first tests).
+    deadman_button: -1
+
+    # Full-stick command magnitudes. Start SMALL for first drives.
+    max_speed: 1.0            # m/s at full stick (raise once trusted)
+    max_steering_angle: 0.35   # rad at full stick (~29 deg)
+
+    # Direction flips. Xbox sticks read "up = -1", so speed is inverted by
+    # default. Flip these if the robot drives/steers backwards from the stick.
+    invert_speed: false
+    invert_steering: false
+
+    publish_rate: 50.0    # Hz; steady stream feeds the firmware watchdog
+    joy_timeout: 0.5      # s; if no /joy for this long, command zero (safe stop)
+    frame_id: base_link
