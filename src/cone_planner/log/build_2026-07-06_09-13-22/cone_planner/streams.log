@@ -1,0 +1,41 @@
+[0.371s] Invoking command in '/home/linfu/ros2_ws/src/cone_planner': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/linfu/ros2_ws/src/cone_planner/build/cone_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/cone_planner build --build-base /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build install --record /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/install.log --single-version-externally-managed install_data
+[0.492s] running egg_info
+[0.492s] creating build/cone_planner/cone_planner.egg-info
+[0.499s] writing build/cone_planner/cone_planner.egg-info/PKG-INFO
+[0.499s] writing dependency_links to build/cone_planner/cone_planner.egg-info/dependency_links.txt
+[0.499s] writing entry points to build/cone_planner/cone_planner.egg-info/entry_points.txt
+[0.499s] writing requirements to build/cone_planner/cone_planner.egg-info/requires.txt
+[0.499s] writing top-level names to build/cone_planner/cone_planner.egg-info/top_level.txt
+[0.499s] writing manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+[0.514s] reading manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+[0.515s] writing manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+[0.515s] running build
+[0.515s] running build_py
+[0.515s] creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build
+[0.515s] creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib
+[0.515s] creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+[0.515s] copying cone_planner/__init__.py -> /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+[0.515s] copying cone_planner/delaunay_planner_node.py -> /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+[0.515s] running install
+[0.519s] running install_lib
+[0.526s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+[0.526s] copying /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner/__init__.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+[0.527s] copying /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner/delaunay_planner_node.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+[0.527s] byte-compiling /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner/__init__.py to __init__.cpython-312.pyc
+[0.527s] byte-compiling /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner/delaunay_planner_node.py to delaunay_planner_node.cpython-312.pyc
+[0.528s] running install_data
+[0.528s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index
+[0.528s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index
+[0.528s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index/packages
+[0.528s] copying resource/cone_planner -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index/packages
+[0.528s] copying package.xml -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner
+[0.528s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/launch
+[0.528s] copying launch/planner.launch.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/launch
+[0.528s] creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/config
+[0.528s] copying config/planner.yaml -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/config
+[0.528s] running install_egg_info
+[0.536s] Copying build/cone_planner/cone_planner.egg-info to /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner-0.1.0-py3.12.egg-info
+[0.536s] running install_scripts
+[0.589s] Installing delaunay_planner script to /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/cone_planner
+[0.590s] writing list of installed files to '/home/linfu/ros2_ws/src/cone_planner/build/cone_planner/install.log'
+[0.604s] Invoked command in '/home/linfu/ros2_ws/src/cone_planner' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/linfu/ros2_ws/src/cone_planner/build/cone_planner/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/cone_planner build --build-base /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build install --record /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/install.log --single-version-externally-managed install_data

@@ -1,0 +1,39 @@
+running egg_info
+creating build/cone_planner/cone_planner.egg-info
+writing build/cone_planner/cone_planner.egg-info/PKG-INFO
+writing dependency_links to build/cone_planner/cone_planner.egg-info/dependency_links.txt
+writing entry points to build/cone_planner/cone_planner.egg-info/entry_points.txt
+writing requirements to build/cone_planner/cone_planner.egg-info/requires.txt
+writing top-level names to build/cone_planner/cone_planner.egg-info/top_level.txt
+writing manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+reading manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+writing manifest file 'build/cone_planner/cone_planner.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build
+creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib
+creating /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+copying cone_planner/__init__.py -> /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+copying cone_planner/delaunay_planner_node.py -> /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner
+running install
+running install_lib
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+copying /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner/__init__.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+copying /home/linfu/ros2_ws/src/cone_planner/build/cone_planner/build/lib/cone_planner/delaunay_planner_node.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner
+byte-compiling /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner/delaunay_planner_node.py to delaunay_planner_node.cpython-312.pyc
+running install_data
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index/packages
+copying resource/cone_planner -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/ament_index/resource_index/packages
+copying package.xml -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/launch
+copying launch/planner.launch.py -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/launch
+creating /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/config
+copying config/planner.yaml -> /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/share/cone_planner/config
+running install_egg_info
+Copying build/cone_planner/cone_planner.egg-info to /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/python3.12/site-packages/cone_planner-0.1.0-py3.12.egg-info
+running install_scripts
+Installing delaunay_planner script to /home/linfu/ros2_ws/src/cone_planner/install/cone_planner/lib/cone_planner
+writing list of installed files to '/home/linfu/ros2_ws/src/cone_planner/build/cone_planner/install.log'

@@ -1,0 +1,2 @@
+[console_scripts]
+delaunay_planner = cone_planner.delaunay_planner_node:main

@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: cone-planner
+Version: 0.1.0
+Summary: Delaunay-triangulation local centerline planner for cone tracks.
+Maintainer: your name
+Maintainer-email: you@example.com
+License: MIT
