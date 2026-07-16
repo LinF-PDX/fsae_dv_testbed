@@ -24,7 +24,7 @@ def generate_launch_description():
             name='lidar_tf',
             arguments=[
                 '--x', '0.15', '--y', '0', '--z', '0.10',
-                '--yaw', '0', '--pitch', '0.7854', '--roll', '0',
+                '--yaw', '0', '--pitch', '0.83', '--roll', '0',
                 '--frame-id', 'base_link', '--child-frame-id', 'rslidar',
             ],
         ),

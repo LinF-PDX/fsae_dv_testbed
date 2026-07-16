@@ -7,12 +7,12 @@ delaunay_planner:
     max_edge_len: 1.5
 
     # Stop chaining waypoints if the next nearest one is farther than this.
-    max_waypoint_gap: 0.3
+    max_waypoint_gap: 0.4
 
     # Ignore midpoints behind (or at) the robot.
     min_forward_x: 0.0
 
     # Local path length cap.
-    max_waypoints: 5
+    max_waypoints: 8
 
     publish_markers: true
