@@ -1,0 +1,16 @@
+pure_pursuit:
+  ros__parameters:
+    lookahead_distance: 0.6    # m ahead to aim. Smaller=tighter/twitchier.
+    wheelbase: 0.25            # MEASURE: front wheel to rear axle distance.
+    max_steering_angle: 0.5    # rad, servo limit (~29 deg).
+    speed: 0.3                 # m/s constant. Start slow.
+    control_rate: 50.0         # Hz, feeds the firmware watchdog.
+    path_timeout: 0.5          # s; no fresh path -> stop.
+    min_path_points: 2
+    output_topic: /cmd/auto
+
+cmd_mux:
+  ros__parameters:
+    auto_enable_button: 0      # HOLD this button (0=A on Xbox) for autonomy.
+    control_rate: 50.0
+    cmd_timeout: 0.3           # s; selected source stale -> stop.

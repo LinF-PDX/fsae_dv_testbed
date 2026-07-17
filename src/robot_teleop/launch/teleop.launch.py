@@ -29,5 +29,6 @@ def generate_launch_description():
             name='joy_to_ackermann',
             output='screen',
             parameters=[params],
+            remappings=[('/cmd', '/cmd/manual')],
         ),
     ])
