@@ -5,8 +5,11 @@ pure_pursuit:
     max_steering_angle: 0.5    # rad, servo limit (~29 deg).
     speed: 0.3                 # m/s constant. Start slow.
     control_rate: 50.0         # Hz, feeds the firmware watchdog.
-    path_timeout: 0.5          # s; no fresh path -> stop.
+    path_timeout: 1.5          # s; no NON-EMPTY path cached for this long -> stop.
     min_path_points: 2
+    max_steering_rate: 1.0     # rad/s, slew limit on published steering angle.
+    max_speed_rate: 0.5        # m/s^2, slew limit on published speed.
+    publish_markers: true      # RViz: lookahead point + applied steering on /pure_pursuit/markers.
     output_topic: /cmd/auto
 
 cmd_mux:
