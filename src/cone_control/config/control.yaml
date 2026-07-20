@@ -3,7 +3,7 @@ pure_pursuit:
     lookahead_distance: 0.6    # m ahead to aim. Smaller=tighter/twitchier.
     wheelbase: 0.25            # MEASURE: front wheel to rear axle distance.
     max_steering_angle: 0.5    # rad, servo limit (~29 deg).
-    speed: 0.3                 # m/s constant. Start slow.
+    speed: 1.0                 # m/s constant. Start slow.
     control_rate: 50.0         # Hz, feeds the firmware watchdog.
     path_timeout: 1.5          # s; no NON-EMPTY path cached for this long -> stop.
     min_path_points: 2
