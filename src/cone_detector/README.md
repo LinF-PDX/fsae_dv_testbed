@@ -1,21 +1,70 @@
 # cone_detector
 
-A ROS 2 node that detects cones (inverted cups) in a LiDAR point cloud and
-publishes their 2D positions. Classical PCL pipeline, no machine learning.
+Two nodes: `cone_detector_node` detects cones (inverted cups) in a LiDAR
+point cloud and publishes their 2D positions per scan. `cone_mapper_node`
+tracks those detections over time into a persistent, confirmed cone map.
+Classical PCL pipeline, no machine learning.
 
-## Pipeline
+`cone_detector_node`'s raw per-scan output (`/cones/observed`) is what
+actually feeds the live planning/control loop (see
+[`cone_planner`](../cone_planner/README.md)); `cone_mapper_node`'s confirmed
+map (`/cones/map`) is not currently consumed downstream — it exists today for
+visualization and as a stepping stone toward map-based planning.
+
+## `cone_detector_node` pipeline
 
 ```
 /points (PointCloud2)
+   -> transform into target_frame (default base_link)
    -> CropBox        (region of interest; z bounds remove ground + ceiling)
    -> VoxelGrid      (downsample)
    -> Euclidean clustering
    -> shape filter   (keep cup-sized clusters)
    -> centroids
-/cones/observed (geometry_msgs/PoseArray)   <- the data
+/cones/observed (geometry_msgs/PoseArray, in target_frame)   <- the data
 /cones/markers  (visualization_msgs/MarkerArray)  <- for RViz
 /debug/cropped, /debug/clusters (PointCloud2)     <- tuning aids
 ```
+
+### Configuration (`config/params.yaml`)
+
+| Key | Default | Description |
+|---|---|---|
+| `target_frame` | `base_link` | Frame to transform the cloud into before cropping/clustering |
+| `crop_min/max_x` | `0.2–2.5 m` | Forward region of interest |
+| `crop_min/max_y` | `±1.0 m` | Lateral region of interest |
+| `crop_min/max_z` | `0.08–0.40 m` | z bounds for ground removal |
+| `voxel_leaf` | `0.0` (disabled) | Downsample resolution |
+| `cluster_tolerance` | `0.12 m` | Max gap within a cluster |
+| `min/max_cluster_size` | `2–3000` | Point count gates |
+| `min_top_z` | `0.14 m` | Cluster must reach above this height to count as a cone |
+| `min/max_footprint` | `0.0–0.20 m` | Accepted cluster width/depth |
+| `min/max_height` | `0.02–0.30 m` | Accepted cluster height |
+| `publish_debug` | `true` | Publish `/debug/*` topics |
+
+## `cone_mapper_node`
+
+Tracks `/cones/observed` over time into a persistent, confirmed cone map —
+smoothing out the frame-to-frame flicker of a single scan.
+
+```
+/cones/observed (PoseArray, target_frame)
+   -> associate each detection with an existing track within association_radius
+      (or start a new track if none matches)
+   -> a track is CONFIRMED once it has min_observations hits
+   -> tracks with no hit in forget_unconfirmed_sec are dropped (unconfirmed only)
+/cones/map (PoseArray)                  <- confirmed cones only
+/cones/map_markers (MarkerArray)        <- for RViz
+```
+
+### Configuration (`config/params.yaml`)
+
+| Key | Default | Description |
+|---|---|---|
+| `target_frame` | `base_link` | Frame the map lives in |
+| `association_radius` | `0.20 m` | Distance to match a detection to an existing tracked cone |
+| `min_observations` | `5` | Detections needed before a cone is confirmed and published to `/cones/map` |
+| `forget_unconfirmed_sec` | `2.0 s` | Unconfirmed tracks older than this are dropped |
 
 ## Build
 
@@ -41,7 +90,8 @@ The recommended workflow is to develop against a recorded bag, not live hardware
    ros2 bag record /points /tf /tf_static -o cones_bag
    ```
 
-2. In one terminal, launch the detector:
+2. In one terminal, launch the detector (this also starts the `base_link` ->
+   LiDAR static TF and `cone_mapper_node`):
 
    ```bash
    ros2 launch cone_detector cone_detector.launch.py
@@ -64,8 +114,10 @@ The recommended workflow is to develop against a recorded bag, not live hardware
    - `/points` (PointCloud2) — the raw cloud
    - `/debug/cropped` (PointCloud2) — after crop + downsample
    - `/debug/clusters` (PointCloud2) — only points that passed the shape filter
-   - `/cones/markers` (MarkerArray) — the detected cones as cylinders
-   Set the RViz fixed frame to your LiDAR frame (the `frame_id` on `/points`).
+   - `/cones/markers` (MarkerArray) — the detected cones as cylinders, per scan
+   - `/cones/map_markers` (MarkerArray) — confirmed, persistent cone map from `cone_mapper_node`
+   Set the RViz fixed frame to `base_link` (or your LiDAR frame if not using
+   the static TF).
 
 ## Tuning (do this stage by stage, watching RViz)
 
@@ -92,8 +144,6 @@ precision/recall number is both your quality gate and a metric for your report.
 
 ## Notes / upgrade paths
 
-- Output is in the cloud's own frame (`frame_id` copied from `/points`). The
-  downstream mapper node is the right place to transform into `odom`/`base_link`.
 - Ground removal here is a simple z-threshold via the crop box, which assumes a
   flat floor that is level relative to the sensor. If the LiDAR is tilted, swap
   in RANSAC plane segmentation (`pcl::SACSegmentation`, `SACMODEL_PLANE`) before

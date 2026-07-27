@@ -3,50 +3,66 @@
 A ROS 2 workspace for FSAE Driverless Vehicle development. The stack acquires
 point clouds from a RoboSense Airy LiDAR, detects and maps traffic cones
 (inverted cups) with a classical PCL pipeline, plans a local centerline
-through them, and drives the vehicle — either by joystick teleop or a
-CAN-connected STM32 — via Ackermann drive commands.
+through them, and drives the vehicle with a pure-pursuit controller — with a
+gamepad always one button away from taking over. `robot_bringup` starts the
+whole thing with a single launch command; see **[Run the robot](#run-the-robot)**
+below.
+
+This file is the outline. Each package's own README has the pipeline
+details, node parameters, tuning guides, and standalone run/test commands —
+follow the links in the table below.
 
 ## Packages
 
-| Package | Description |
-|---|---|
-| `cone_detector` | LiDAR-based cone detection (`cone_detector_node`) and persistent cone mapping (`cone_mapper_node`) |
-| `cone_planner` | Delaunay-triangulation local centerline planner (`delaunay_planner_node`) |
-| `robot_teleop` | Xbox-style gamepad teleop — `/joy` to Ackermann drive commands |
-| `can_bridge` | Bridges Ackermann drive commands to CAN frames for the STM32, and publishes encoder feedback |
-| `rslidar_sdk` | RoboSense LiDAR ROS 2 driver (submodule, supports RS-AIRY and 15+ models) |
-| `rslidar_msg` | ROS 2 message definitions required by `rslidar_sdk` |
+| Package | Description | Docs |
+|---|---|---|
+| `cone_detector` | LiDAR-based cone detection (`cone_detector_node`) and persistent cone mapping (`cone_mapper_node`) | [README](src/cone_detector/README.md) |
+| `cone_planner` | Delaunay-triangulation local centerline planner (`delaunay_planner_node`) | [README](src/cone_planner/README.md) |
+| `cone_control` | Pure-pursuit path tracker (`pure_pursuit`) and manual/autonomy command mux (`cmd_mux`) | [README](src/cone_control/README.md) |
+| `robot_teleop` | Xbox-style gamepad teleop — `/joy` to Ackermann drive commands | [README](src/robot_teleop/README.md) |
+| `can_bridge` | Bridges Ackermann drive commands to CAN frames for the STM32, and publishes encoder feedback | [README](src/can_bridge/README.md) |
+| `robot_bringup` | Top-level launch files — brings up the full autonomy stack or teleop-only with one command | [README](src/robot_bringup/README.md) |
+| `rslidar_sdk` | RoboSense LiDAR ROS 2 driver (submodule, supports RS-AIRY and 15+ models) | [upstream README](src/rslidar_sdk/README.md) |
+| `rslidar_msg` | ROS 2 message definitions required by `rslidar_sdk` | [upstream README](src/rslidar_msg-master/README.md) |
 
 ## System Overview
 
 ```
-RoboSense Airy LiDAR                          Xbox gamepad
-        |                                           |
-   rslidar_sdk_node                             joy_node
-        | /rslidar_points (PointCloud2)             | /joy
-   cone_detector_node                       joy_to_ackermann_node
-        |-- /cones/observed (PoseArray)              |
-        |-- /cones/markers, /debug/*                 |
-        v                                            |
-   cone_mapper_node                                  |
-        |-- /cones/map (PoseArray, confirmed cones)  |
-        `-- /cones/map_markers                       |
-        |                                            |
-   delaunay_planner_node                             |
-        |-- /path (nav_msgs/Path)                    |
-        `-- /path_markers                            |
-                                                      v
-                                              /cmd (AckermannDriveStamped)
-                                                      |
-                                              can_bridge_node
-                                                      |-- /to_can_bus -> STM32
-                                                      `-- /from_can_bus -> /encoder
+RoboSense Airy LiDAR                                   Xbox gamepad
+        |                                                    |
+   rslidar_sdk_node                                      joy_node
+        | /rslidar_points (PointCloud2)                      | /joy
+   cone_detector_node                                        |
+        |-- /cones/observed (PoseArray, base_link)            |
+        |-- /cones/markers, /debug/*                          |
+        |-- v (mapping/visualization only, not in the         |
+        |     control loop)                                   |
+        |   cone_mapper_node                                  |
+        |     |-- /cones/map, /cones/map_markers               |
+        v                                                     v
+   delaunay_planner_node                             joy_to_ackermann_node
+        |-- /path (nav_msgs/Path)                              | /cmd/manual
+        `-- /path_markers                                      |
+        v                                                      |
+   pure_pursuit_node                                           |
+        `-- /cmd/auto (AckermannDriveStamped)                  |
+                        \                                     /
+                         v                                   v
+                              cmd_mux_node
+                    (HOLD the autonomy button -> forward /cmd/auto
+                     RELEASE it                -> forward /cmd/manual)
+                                    |
+                              /cmd (AckermannDriveStamped)
+                                    |
+                            can_bridge_node
+                                    |-- /to_can_bus -> STM32
+                                    `-- /from_can_bus -> /encoder
 ```
 
-`cone_detector_node` and `delaunay_planner_node` are not yet wired together
-(no controller consumes `/path` yet) — today the vehicle is driven by
-`robot_teleop` publishing directly to `/cmd`, with `can_bridge` as the only
-consumer.
+`cone_mapper_node`'s confirmed cone map (`/cones/map`) is not currently
+consumed by the planner — `delaunay_planner_node` plans directly off the raw
+per-scan `/cones/observed`. The mapper exists today for visualization and as
+a stepping stone toward map-based planning.
 
 ## Prerequisites
 
@@ -79,159 +95,54 @@ To build a single package:
 colcon build --packages-select cone_detector
 ```
 
-## Run
+## Run the robot
 
-### Live hardware
+`robot_bringup` is the master node for the whole vehicle — it starts every
+node below with one command instead of one launch per terminal. See
+[`src/robot_bringup/README.md`](src/robot_bringup/README.md) for launch
+arguments and what each option starts internally.
 
-**Terminal 1** — start the LiDAR driver:
-
-```bash
-ros2 launch rslidar_sdk start.py
-```
-
-The driver publishes point clouds on `/rslidar_points` (configured in `src/rslidar_sdk/config/config.yaml`).
-
-**Terminal 2** — start cone detection + mapping:
+**0. One-time per boot** — bring the CAN interface up (needs `sudo`, so it's
+a separate script, not part of the launch file):
 
 ```bash
-ros2 launch cone_detector cone_detector.launch.py
+~/ros2_ws/src/robot_bringup/scripts/can_up.sh can0 500000
 ```
 
-This also publishes the `base_link` -> `rslidar` static transform for the
-current mount (front-mounted, 45° forward tilt). The launch file remaps
-`/points` -> `/rslidar_points`. Parameters are loaded from
-`src/cone_detector/config/params.yaml`.
-
-**Terminal 3** — start the local planner (optional, not yet consumed by a controller):
+**1. Full autonomy** (LiDAR -> perception -> planning -> control -> CAN, plus
+teleop as a live override):
 
 ```bash
-ros2 launch cone_planner planner.launch.py
+ros2 launch robot_bringup autonomy_bringup.launch.py
 ```
 
-**Terminal 4** — drive the vehicle. Either joystick teleop:
+- **HOLD the autonomy button (A on the gamepad)** to hand control to
+  pure_pursuit. **RELEASE it** to fall back to manual teleop. Release
+  everything (no button, no stick) and the robot stops — `cmd_mux` always
+  falls back to zero if neither source is fresh.
+- Pass `lidar:=false` when replaying a bag instead of running the live LiDAR.
+
+**Or, teleop only** (no LiDAR/perception/planning — just gamepad -> CAN):
 
 ```bash
-ros2 launch robot_teleop teleop.launch.py
+ros2 launch robot_bringup teleop_bringup.launch.py
 ```
 
-or the CAN bridge to the STM32 (bring up whichever publishes `/cmd`, not both at once):
+Both accept `interface:=<can-iface>` (default `can0`).
 
-```bash
-ros2 launch can_bridge can_bridge.launch.py interface:=can0
-```
+### Developing perception/planning without hardware
 
-`can_bridge.launch.py` also brings up and activates the `ros2_socketcan`
-sender/receiver lifecycle nodes on the given interface.
+Record a drive through cones once, then iterate against the bag instead of
+the live LiDAR — see [`src/cone_detector/README.md`](src/cone_detector/README.md#run)
+for the record/replay workflow and what to look at in RViz.
 
-### Bag-based development (recommended for perception/planning work)
+### Something looks wrong
 
-Record a drive through cones:
-
-```bash
-ros2 bag record /rslidar_points /tf /tf_static -o cones_bag
-```
-
-Replay while the detector (and planner) is running:
-
-```bash
-ros2 bag play cones_bag --loop
-```
-
-Open RViz and add:
-- `/rslidar_points` — raw cloud
-- `/debug/cropped` — after crop + downsample
-- `/debug/clusters` — clusters that passed the shape filter
-- `/cones/markers` — per-scan detected cones
-- `/cones/map_markers` — confirmed, persistent cone map
-- `/path_markers` — planned local centerline
-
-## Configuration
-
-### LiDAR driver (`src/rslidar_sdk/config/config.yaml`)
-
-Key settings:
-
-| Key | Default | Description |
-|---|---|---|
-| `msg_source` | `1` | `1` = live LiDAR, `3` = PCAP file |
-| `lidar_type` | `RSAIRY` | LiDAR model |
-| `msop_port` | `6699` | Data port |
-| `difop_port` | `7788` | Config port |
-| `ros_send_point_cloud_topic` | `/rslidar_points` | Output topic |
-
-### Cone detector + mapper (`src/cone_detector/config/params.yaml`)
-
-Edit and re-launch — no recompile needed.
-
-`cone_detector` (per-scan detection):
-
-| Key | Default | Description |
-|---|---|---|
-| `target_frame` | `base_link` | Frame to transform the cloud into |
-| `crop_min/max_x` | `0.2–2.5 m` | Forward region of interest |
-| `crop_min/max_y` | `±1.0 m` | Lateral region of interest |
-| `crop_min/max_z` | `0.08–0.40 m` | z bounds for ground removal |
-| `voxel_leaf` | `0.0` (disabled) | Downsample resolution |
-| `cluster_tolerance` | `0.12 m` | Max gap within a cluster |
-| `min/max_cluster_size` | `2–3000` | Point count gates |
-| `min_top_z` | `0.14 m` | Cluster must reach above this height to count as a cone |
-| `min/max_footprint` | `0.0–0.20 m` | Accepted cluster width/depth |
-| `min/max_height` | `0.02–0.30 m` | Accepted cluster height |
-| `publish_debug` | `true` | Publish `/debug/*` topics |
-
-`cone_mapper` (persistent map, built on top of `/cones/observed`):
-
-| Key | Default | Description |
-|---|---|---|
-| `target_frame` | `base_link` | Frame the map lives in |
-| `association_radius` | `0.20 m` | Distance to match a detection to an existing tracked cone |
-| `min_observations` | `5` | Detections needed before a cone is confirmed and published to `/cones/map` |
-| `forget_unconfirmed_sec` | `2.0 s` | Unconfirmed tracks older than this are dropped |
-
-See [`src/cone_detector/README.md`](src/cone_detector/README.md) for the full stage-by-stage tuning guide.
-
-### Local planner (`src/cone_planner/config/planner.yaml`)
-
-Consumes `/cones/observed` and Delaunay-triangulates the 2D cone positions
-each scan; edges whose length falls in a "crossing" band (between two track
-boundaries) are kept, and their midpoints become the centerline path. The
-track layout must be designed so cone spacing and track width don't overlap.
-
-| Key | Default | Description |
-|---|---|---|
-| `min/max_edge_len` | `0.8–1.5 m` | Crossing-edge length band; must satisfy boundary spacing < min < track width < max |
-| `max_waypoint_gap` | `0.4 m` | Stop chaining waypoints past this gap (avoids jumping to disconnected remnants) |
-| `min_forward_x` | `0.0 m` | Ignore midpoints behind/at the robot |
-| `max_waypoints` | `8` | Local path length cap |
-| `publish_markers` | `true` | Publish `/path_markers` |
-
-### Teleop (`src/robot_teleop/config/teleop.yaml`)
-
-| Key | Default | Description |
-|---|---|---|
-| `speed_axis` / `steering_axis` | `5` / `0` | `/joy` axis indices — verify with `ros2 topic echo /joy` |
-| `deadman_button` | `-1` (disabled) | Button held to enable driving; `-1` disables the deadman |
-| `max_speed` | `1.0 m/s` | Speed at full stick |
-| `max_steering_angle` | `0.35 rad` | Steering at full stick |
-| `invert_speed` / `invert_steering` | `false` / `false` | Flip if the robot drives/steers backwards from the stick |
-| `publish_rate` | `50.0 Hz` | Command rate (feeds the firmware watchdog) |
-| `joy_timeout` | `0.5 s` | No `/joy` for this long -> publish zero (safe stop) |
-
-### CAN bridge (`src/can_bridge/config/can_bridge.yaml`)
-
-Bridges `/cmd` (AckermannDriveStamped) to CAN frames via `ros2_socketcan`
-(`/to_can_bus`, `/from_can_bus`), and unpacks encoder feedback to `/encoder`.
-All CAN IDs and scaling are parameters so the DBC can change without
-recompiling.
-
-| Key | Default | Description |
-|---|---|---|
-| `cmd_can_id` / `fb_can_id` | `0x200` / `0x201` | DV_Command / DV_Feedback CAN IDs |
-| `steering_scale` | `1800/pi ≈ 572.96` | rad -> DBC units (deg × 10) |
-| `max_pwm` / `speed_at_max_pwm` | `1000.0` / `0.2 m/s` | m/s -> PWM calibration point |
-| `max_steering_dbc` | `300.0` (±30 deg) | Clamp applied after conversion |
-| `max_speed_pwm` | `1000.0` | Clamp applied after conversion |
-| `cmd_topic` | `/cmd` | Input command topic (teleop and `can_bridge` both use this — run only one source at a time until a mux is added) |
+RViz showing detections/path but the robot not responding to teleop or
+autonomy almost always means a CAN lifecycle node never reached `active` —
+see the troubleshooting notes in
+[`src/can_bridge/README.md`](src/can_bridge/README.md#troubleshooting) and
+[`src/robot_bringup/README.md`](src/robot_bringup/README.md#troubleshooting).
 
 ## Repository Structure
 
@@ -239,30 +150,21 @@ recompiling.
 ros2_ws/
 ├── src/
 │   ├── cone_detector/          # Cone detection + mapping
-│   │   ├── config/params.yaml
-│   │   ├── launch/cone_detector.launch.py
-│   │   └── src/cone_detector_node.cpp, cone_mapper_node.cpp
 │   ├── cone_planner/           # Delaunay local centerline planner
-│   │   ├── config/planner.yaml
-│   │   ├── launch/planner.launch.py
-│   │   └── cone_planner/delaunay_planner_node.py
+│   ├── cone_control/           # Pure-pursuit controller + command mux
 │   ├── robot_teleop/           # Gamepad teleop
-│   │   ├── config/teleop.yaml
-│   │   ├── launch/teleop.launch.py
-│   │   └── src/joy_to_ackermann_node.cpp
 │   ├── can_bridge/             # CAN bridge to STM32
-│   │   ├── config/can_bridge.yaml
-│   │   ├── launch/can_bridge.launch.py
-│   │   └── src/can_bridge_node.cpp
+│   ├── robot_bringup/          # Top-level launch files (the entry point)
 │   ├── rslidar_sdk/            # RoboSense SDK (git submodule)
-│   │   ├── config/config.yaml
-│   │   └── src/rs_driver/
 │   └── rslidar_msg-master/     # Message definitions for rslidar_sdk
-│       └── msg/RslidarPacket.msg
 ├── build/
 ├── install/
 └── log/
 ```
+
+Each `src/<package>/` follows the standard ROS 2 layout: `config/*.yaml` for
+parameters, `launch/*.launch.py` to run it standalone, and its own `README.md`
+for details.
 
 ## Submodule
 
