@@ -6,6 +6,12 @@ cone_detector:
     # Region of interest, in target_frame (metres). x: forward, y: left, z: up.
     # MUST cover the whole track: anything outside is invisible by definition.
     # Sensor now sits at the robot's front, so near-field starts close.
+    # crop_max_x widened 2.5 -> 3.5: the Delaunay planner needs >=4 cones
+    # simultaneously in view (see cone_planner/delaunay_planner_node.py) and
+    # has no memory between frames, so a shallow ROI meant any instant with
+    # too few cones in the box emptied the path. More forward depth gives
+    # more margin before that happens. Now that voxel_leaf keeps clustering
+    # cheap even with a bigger cropped cloud, this is close to free.
     crop_min_x: 0.2
     crop_max_x: 2.5
     crop_min_y: -1.0
@@ -15,9 +21,18 @@ cone_detector:
     crop_min_z: 0.08
     crop_max_z: 0.40
 
-    # Voxel downsampling DISABLED (<= 0): it thins far cones, which already
-    # get few beam hits, and the laptop doesn't need the speedup.
-    voxel_leaf: 0.0
+    # Voxel downsampling at 2 cm: smaller than any cone feature we gate on
+    # (footprints run 5-15 cm), so it barely touches sparse far-cone returns,
+    # but it caps the point count PCL's Euclidean clustering has to chew
+    # through. Re-enabled after a real drive log showed a large object
+    # (rejected by the shape gate, but still fully grown by the clusterer
+    # before being thrown away -- PCL doesn't early-exit on max_cluster_size)
+    # pushing cropped point count to ~8000 and clustering alone to 200-270ms,
+    # long enough to blow the path_timeout and stop the robot. If this ever
+    # needs revisiting: was previously disabled because it thins far cones,
+    # which already get few beam hits -- watch far-cone detection range if
+    # you raise this much above 0.02.
+    voxel_leaf: 0.02
 
     # Euclidean clustering.
     # tolerance 0.12: ring-to-ring spacing on a cone reaches ~6-8 cm at range,

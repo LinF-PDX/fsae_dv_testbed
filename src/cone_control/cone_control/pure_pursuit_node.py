@@ -13,10 +13,12 @@ Method each control tick:
         alpha = atan2(y, x)                 (bearing to target)
         delta = atan2(2 * L * sin(alpha), ld)   (bicycle steering angle)
      where L = wheelbase and ld = distance to the lookahead point.
-  3. Slew-rate limit steering and speed against the previously published
+  3. Speed: constant (`speed`) unless `adaptive_speed` is true, in which case
+     it's scheduled off the just-clamped steering angle -- see `_schedule_speed`.
+  4. Slew-rate limit steering and speed against the previously published
      values, using the actual measured tick period (not an assumed one).
-  4. Publish the result, plus an RViz MarkerArray for the lookahead point
-     and applied steering.
+  5. Publish the result, plus an RViz MarkerArray for the lookahead point,
+     applied steering, and the active speed mode.
 
 Safety: publishes on a fixed timer (feeds the firmware watchdog). The planner
 publishes a path every scan, including empty ones on frames with too few
@@ -24,9 +26,11 @@ cones to triangulate -- treating those as "path gone" caused the command to
 flicker between the cruise speed and zero every time a single frame dropped
 out. Instead, on_path only caches NON-EMPTY paths; on_tick's freshness check
 against that cache is what actually decides "stop": if no non-empty path has
-arrived for path_timeout seconds, the target speed/steer drop to zero (and
-slew-limit down from there, same as any other command change). Autonomy is
-just another publisher to the command chain; empty/stale path == stop.
+arrived for path_timeout seconds, the target speed drops to zero (slew-limited
+down, same as any other command change) while target steer holds at the last
+commanded angle -- so the robot coasts to a stop on its current heading
+instead of straightening out. Autonomy is just another publisher to the
+command chain; empty/stale path == stop (but not straighten).
 """
 
 import math
@@ -49,6 +53,10 @@ class PurePursuit(Node):
         self.wheelbase = self.declare_parameter('wheelbase', 0.25).value  # MEASURE
         self.max_steer = self.declare_parameter('max_steering_angle', 0.5).value
         self.speed = self.declare_parameter('speed', 0.3).value           # start slow
+        self.adaptive_speed = self.declare_parameter('adaptive_speed', False).value
+        self.max_speed = self.declare_parameter('max_speed', 0.5).value          # adaptive: speed on straights
+        self.min_speed = self.declare_parameter('min_speed', 0.15).value         # adaptive: floor at full lock
+        self.speed_curve_exponent = self.declare_parameter('speed_curve_exponent', 1.0).value  # adaptive: 1.0=linear
         self.control_rate = self.declare_parameter('control_rate', 50.0).value
         self.path_timeout = self.declare_parameter('path_timeout', 0.5).value
         self.min_points = self.declare_parameter('min_path_points', 2).value
@@ -74,9 +82,16 @@ class PurePursuit(Node):
 
         self.timer = self.create_timer(1.0 / self.control_rate, self.on_tick)
 
+        if self.adaptive_speed:
+            speed_desc = (
+                f'ADAPTIVE speed: max_speed={self.max_speed:.2f} m/s, '
+                f'min_speed={self.min_speed:.2f} m/s, '
+                f'speed_curve_exponent={self.speed_curve_exponent:.2f}')
+        else:
+            speed_desc = f'CONSTANT speed={self.speed:.2f} m/s'
         self.get_logger().info(
-            f'pure_pursuit up: lookahead={self.lookahead:.2f} m, '
-            f'wheelbase={self.wheelbase:.2f} m, speed={self.speed:.2f} m/s, '
+            f'pure_pursuit up: {speed_desc}, lookahead={self.lookahead:.2f} m, '
+            f'wheelbase={self.wheelbase:.2f} m, '
             f'max_steering_rate={self.max_steering_rate:.2f} rad/s, '
             f'max_speed_rate={self.max_speed_rate:.2f} m/s^2, '
             f'publishing {out_topic}')
@@ -103,8 +118,14 @@ class PurePursuit(Node):
             dt = 1.0 / self.control_rate
         self.last_tick_time = now
 
-        target_speed, target_steer = 0.0, 0.0
+        # Default steer to the last commanded angle (not 0) so that when the
+        # path is lost, the slew limiter has nothing to pull it toward and it
+        # simply holds; speed still targets 0 so the robot coasts to a stop
+        # on its current heading rather than straightening out mid-stop.
+        target_speed, target_steer = 0.0, self.last_steer
         lookahead_pt = None
+        adaptive_s = None
+        adaptive_target_speed = None
 
         fresh = (now - self.last_path_time).nanoseconds < self.path_timeout * 1e9
         path_ok = fresh and self.path_pts is not None and len(self.path_pts) >= self.min_points
@@ -118,8 +139,13 @@ class PurePursuit(Node):
                     alpha = math.atan2(y, x)
                     target_steer = math.atan2(2.0 * self.wheelbase * math.sin(alpha), ld)
                     target_steer = max(-self.max_steer, min(self.max_steer, target_steer))
-                    target_speed = self.speed
                     lookahead_pt = (x, y)
+
+                    if self.adaptive_speed:
+                        adaptive_s, adaptive_target_speed = self._schedule_speed(target_steer)
+                        target_speed = adaptive_target_speed
+                    else:
+                        target_speed = self.speed
 
         if path_ok and not self._path_was_ok:
             self.get_logger().info(
@@ -142,7 +168,20 @@ class PurePursuit(Node):
         self.pub.publish(cmd)
 
         if self.publish_markers:
-            self.publish_marker_array(lookahead_pt, steer, speed)
+            self.publish_marker_array(
+                lookahead_pt, steer, speed, adaptive_s, adaptive_target_speed)
+
+    def _schedule_speed(self, steer):
+        # Geometric heuristic, not a vehicle-dynamics model: speed drops as a
+        # power curve of normalized steering angle, from max_speed (straight)
+        # down to a min_speed floor (full lock). speed_curve_exponent shapes
+        # the curve -- 1.0 linear, >1 stays fast through mild steering and
+        # drops sharply near lock, <1 slows down earlier.
+        s = abs(steer) / self.max_steer if self.max_steer > 1e-6 else 0.0
+        s = max(0.0, min(1.0, s))
+        v = self.max_speed - (s ** self.speed_curve_exponent) * (self.max_speed - self.min_speed)
+        v = max(self.min_speed, min(self.max_speed, v))
+        return s, v
 
     @staticmethod
     def _slew_limit(target, prev, max_delta):
@@ -172,10 +211,11 @@ class PurePursuit(Node):
         return ahead[np.argmax(d_ahead)]
 
     # ------------------------------------------------------------------
-    def publish_marker_array(self, lookahead_pt, steer, speed):
+    def publish_marker_array(self, lookahead_pt, steer, speed, adaptive_s, adaptive_target_speed):
         arr = MarkerArray()
         stamp = self.get_clock().now().to_msg()
         zero_lifetime = Duration(sec=0, nanosec=0)
+        mode = 'ADAPT' if self.adaptive_speed else 'CONST'
 
         clear = Marker()
         clear.header.frame_id = self.path_frame_id
@@ -236,12 +276,15 @@ class PurePursuit(Node):
             arrow.lifetime = zero_lifetime
             arr.markers.append(arrow)
 
-            arr.markers.append(self._text_marker(
-                stamp,
-                f'steer: {math.degrees(steer):+.1f} deg\nspeed: {speed:.2f} m/s',
-                (1.0, 1.0, 1.0)))
+            text = (
+                f'mode: {mode}\n'
+                f'steer: {math.degrees(steer):+.1f} deg\n'
+                f'speed: {speed:.2f} m/s')
+            if self.adaptive_speed and adaptive_s is not None:
+                text += f'\ns={adaptive_s:.2f}  target={adaptive_target_speed:.2f} m/s'
+            arr.markers.append(self._text_marker(stamp, text, (1.0, 1.0, 1.0)))
         else:
-            arr.markers.append(self._text_marker(stamp, 'NO PATH', (1.0, 0.2, 0.2)))
+            arr.markers.append(self._text_marker(stamp, f'mode: {mode}\nNO PATH', (1.0, 0.2, 0.2)))
 
         self.marker_pub.publish(arr)
 

@@ -31,6 +31,7 @@ Starts, in order of the data flow:
 | `cone_control` | `pure_pursuit` -> `/cmd/auto`, `cmd_mux` -> `/cmd` |
 | `robot_teleop` | `joy_node` + `joy_to_ackermann` -> `/cmd/manual` |
 | `can_bridge` | `can_receiver`/`can_sender` (lifecycle) + `can_bridge_node` -> CAN -> STM32 |
+| *(this launch file)* | background keyboard listener -> latched `/autonomy_enable`, toggled by SPACE |
 
 Launch arguments:
 
@@ -44,12 +45,17 @@ ros2 launch robot_bringup autonomy_bringup.launch.py
 ros2 launch robot_bringup autonomy_bringup.launch.py lidar:=false
 ```
 
-**Control handoff**: `cmd_mux` selects the drive source every tick —
-**HOLD the autonomy button (A)** to forward `/cmd/auto` (pure_pursuit
-drives), **release it** to forward `/cmd/manual` (you drive). If neither
-source has published recently, it publishes zero. See
-[`cone_control`'s README](../cone_control/README.md) for the exact timeout
-and button parameters.
+**Control handoff**: this launch file starts a background keyboard listener
+in the terminal it's run from — **press SPACE** to engage autonomy (forwards
+`/cmd/auto`, pure_pursuit drives), **press SPACE again** to drop back to
+manual (forwards `/cmd/manual`, you drive). It's a latch, not a deadman: the
+state sticks until you press SPACE again, it does not require holding
+anything down. `cmd_mux` picks the source every tick based on that latched
+state, and if neither source has published recently it publishes zero
+regardless. See [`cone_control`'s README](../cone_control/README.md) for the
+exact timeout parameters, and the note at the top of
+`launch/autonomy_bringup.launch.py` for why the key listener lives in the
+launch file instead of as its own node.
 
 ## `launch/teleop_bringup.launch.py`
 

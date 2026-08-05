@@ -8,9 +8,7 @@ Starts everything needed to drive the robot by hand:
 No LiDAR, perception, or planning -- those are only needed for autonomy.
 
 Prerequisite (run once per boot, needs sudo so it is NOT done here):
-    sudo ip link set can0 down
-    sudo ip link set can0 type can bitrate 500000
-    sudo ip link set can0 up
+    sudo ip link set can0 up type can bitrate 500000
 
 Usage:
     ros2 launch robot_bringup teleop_bringup.launch.py

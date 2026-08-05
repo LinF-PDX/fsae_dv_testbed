@@ -3,7 +3,11 @@ pure_pursuit:
     lookahead_distance: 0.6    # m ahead to aim. Smaller=tighter/twitchier.
     wheelbase: 0.25            # MEASURE: front wheel to rear axle distance.
     max_steering_angle: 0.5    # rad, servo limit (~29 deg).
-    speed: 0.7             # m/s constant. Start slow.
+    speed: 0.7             # m/s constant. Start slow. Used when adaptive_speed is false.
+    adaptive_speed: false # true: schedule speed off steering angle instead of constant `speed`.
+    max_speed: 1.0             # m/s, adaptive mode: speed on straights (s=0).
+    min_speed: 0.2            # m/s, adaptive mode: floor at full lock (s=1). Never crawls to a stop.
+    speed_curve_exponent: 0.5  # adaptive mode: 1.0=linear; >1 stays fast through mild steer, drops near lock; <1 slows earlier.
     control_rate: 50.0         # Hz, feeds the firmware watchdog.
     path_timeout: 1.5          # s; no NON-EMPTY path cached for this long -> stop.
     min_path_points: 2
@@ -14,6 +18,5 @@ pure_pursuit:
 
 cmd_mux:
   ros__parameters:
-    auto_enable_button: 0      # HOLD this button (0=A on Xbox) for autonomy.
     control_rate: 50.0
     cmd_timeout: 0.3           # s; selected source stale -> stop.

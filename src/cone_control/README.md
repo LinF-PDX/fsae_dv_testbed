@@ -8,7 +8,7 @@ commands, and a command mux that arbitrates between that and the human.
    -> pure_pursuit -> /cmd/auto (AckermannDriveStamped)
                                         \
 /cmd/manual (AckermannDriveStamped) ----+-> cmd_mux -> /cmd (AckermannDriveStamped)
-/joy (sensor_msgs/Joy, for the auto-enable button) --/
+/autonomy_enable (std_msgs/Bool, latched, SPACE toggle) --/
 ```
 
 ## `pure_pursuit`
@@ -24,10 +24,20 @@ Each control tick:
    `alpha = atan2(y, x)` (bearing to target),
    `delta = atan2(2 * wheelbase * sin(alpha), ld)` (bicycle steering angle),
    where `ld` is the distance to the lookahead point.
-3. **Slew-rate limiting** on both steering and speed against the previously
+3. **Speed** — constant `speed` by default. If `adaptive_speed` is true,
+   speed is instead scheduled off the just-clamped steering angle: normalize
+   `|steer| / max_steering_angle` to `s in [0, 1]`, then
+   `v = max_speed - s^speed_curve_exponent * (max_speed - min_speed)` —
+   `max_speed` on straights (`s=0`) down to a `min_speed` floor at full lock
+   (`s=1`, never crawls to a stop). `speed_curve_exponent` shapes the curve:
+   `1.0` linear, `>1` stays fast through mild steering and drops sharply near
+   lock, `<1` slows down earlier. This is a geometric heuristic, not a
+   vehicle-dynamics model.
+4. **Slew-rate limiting** on both steering and speed against the previously
    published values, using the actual measured tick period.
-4. Publishes the command, plus an RViz `MarkerArray` on `/pure_pursuit/markers`
-   (lookahead point, line to it, steering arrow, speed/steering readout).
+5. Publishes the command, plus an RViz `MarkerArray` on `/pure_pursuit/markers`
+   (lookahead point, line to it, steering arrow, speed/steering readout, and
+   the active speed mode/target when adaptive).
 
 **Path loss handling**: the planner publishes a path every scan, including
 empty ones on frames with too few cones to triangulate. Treating an empty
@@ -45,7 +55,11 @@ command change.
 | `lookahead_distance` | `0.6 m` | Smaller = tighter but twitchier tracking |
 | `wheelbase` | `0.25 m` | **MEASURE** — front wheel to rear axle distance |
 | `max_steering_angle` | `0.5 rad` | Servo limit (~29°) |
-| `speed` | `0.7 m/s` | Constant cruise speed. Start slow |
+| `speed` | `0.7 m/s` | Constant cruise speed, used when `adaptive_speed` is false. Start slow |
+| `adaptive_speed` | `false` | `true`: schedule speed off steering angle (see step 3 above) instead of constant `speed` |
+| `max_speed` | `1.0 m/s` | Adaptive mode: speed on straights (`s=0`) |
+| `min_speed` | `0.2 m/s` | Adaptive mode: floor at full lock (`s=1`); never crawls to a stop |
+| `speed_curve_exponent` | `0.5` | Adaptive mode: `1.0` linear; `>1` stays fast through mild steer then drops near lock; `<1` slows earlier |
 | `control_rate` | `50.0 Hz` | Feeds the firmware watchdog |
 | `path_timeout` | `1.5 s` | No non-empty path cached for this long -> stop |
 | `min_path_points` | `2` | Minimum points required to compute a lookahead |
@@ -56,30 +70,38 @@ command change.
 
 ## `cmd_mux`
 
-Deadman-style source selector, safest for early autonomous testing:
+Latched source selector, toggled by pressing SPACE in the terminal running
+`autonomy_bringup.launch.py` (see [`robot_bringup`'s
+README](../robot_bringup/README.md)):
 
-- **HOLD** the auto-enable button (`auto_enable_button`, default `0` = A on
-  Xbox) -> forward `/cmd/auto` (the robot drives itself).
-- **RELEASE** it -> forward `/cmd/manual` (you drive, or it stops if teleop
-  is also idle — teleop has its own deadman).
+- `/autonomy_enable` latched `True` -> forward `/cmd/auto` (the robot drives
+  itself).
+- `/autonomy_enable` latched `False` (the default) -> forward `/cmd/manual`
+  (you drive, or it stops if teleop is also idle — teleop has its own
+  deadman).
 
 Publishes on a fixed timer regardless of message arrival (feeds the firmware
 watchdog). If the currently-selected source hasn't published within
-`cmd_timeout`, it publishes **zero**, not the last stale command — releasing
-everything always returns to a safe stop.
+`cmd_timeout`, it publishes **zero**, not the last stale command.
 
 ### Configuration (`config/control.yaml`, `cmd_mux` block)
 
 | Key | Default | Description |
 |---|---|---|
-| `auto_enable_button` | `0` (A) | `/joy` button index that hands control to `/cmd/auto` while held |
 | `control_rate` | `50.0 Hz` | Publish rate for `/cmd` |
 | `cmd_timeout` | `0.3 s` | Selected source stale for this long -> publish zero |
 
 ## Run standalone
 
 Needs `/path` (from `cone_planner`, or published manually for bench testing)
-and `/joy` + `/cmd/manual` (from `robot_teleop`) already available:
+and `/cmd/manual` (from `robot_teleop`) already available. `/autonomy_enable`
+is only published by `autonomy_bringup.launch.py`'s keyboard latch, so
+running `cmd_mux` on its own means it stays in manual mode unless you publish
+that topic yourself, e.g.:
+
+```bash
+ros2 topic pub /autonomy_enable std_msgs/msg/Bool "{data: true}" --once
+```
 
 ```bash
 ros2 launch cone_control control.launch.py

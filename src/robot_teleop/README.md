@@ -39,6 +39,7 @@ in the loop too (which is exactly what `robot_bringup`'s
 | `invert_speed` / `invert_steering` | `false` / `false` | Flip if the robot drives/steers backwards from the stick |
 | `publish_rate` | `50.0 Hz` | Command rate (feeds the firmware watchdog) |
 | `joy_timeout` | `0.5 s` | No `/joy` for this long -> publish zero (safe stop) |
+| `frame_id` | `base_link` | Header frame stamped on published `AckermannDriveStamped` messages |
 
 ## Run standalone
 

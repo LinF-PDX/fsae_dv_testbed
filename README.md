@@ -4,9 +4,9 @@ A ROS 2 workspace for FSAE Driverless Vehicle development. The stack acquires
 point clouds from a RoboSense Airy LiDAR, detects and maps traffic cones
 (inverted cups) with a classical PCL pipeline, plans a local centerline
 through them, and drives the vehicle with a pure-pursuit controller — with a
-gamepad always one button away from taking over. `robot_bringup` starts the
-whole thing with a single launch command; see **[Run the robot](#run-the-robot)**
-below.
+gamepad always available to drive manually instead. `robot_bringup` starts
+the whole thing with a single launch command; see
+**[Run the robot](#run-the-robot)** below.
 
 This file is the outline. Each package's own README has the pipeline
 details, node parameters, tuning guides, and standalone run/test commands —
@@ -49,8 +49,8 @@ RoboSense Airy LiDAR                                   Xbox gamepad
                         \                                     /
                          v                                   v
                               cmd_mux_node
-                    (HOLD the autonomy button -> forward /cmd/auto
-                     RELEASE it                -> forward /cmd/manual)
+                (SPACE key, latched: engage  -> forward /cmd/auto
+                             disengage -> forward /cmd/manual)
                                     |
                               /cmd (AckermannDriveStamped)
                                     |
@@ -116,10 +116,11 @@ teleop as a live override):
 ros2 launch robot_bringup autonomy_bringup.launch.py
 ```
 
-- **HOLD the autonomy button (A on the gamepad)** to hand control to
-  pure_pursuit. **RELEASE it** to fall back to manual teleop. Release
-  everything (no button, no stick) and the robot stops — `cmd_mux` always
-  falls back to zero if neither source is fresh.
+- **Press SPACE** (in the terminal running the launch command) to engage
+  autonomy and hand control to pure_pursuit. **Press SPACE again** to drop
+  back to manual teleop — it's a latch, not a hold. Release the gamepad
+  entirely while in manual mode and the robot stops — `cmd_mux` always falls
+  back to zero if neither source is fresh.
 - Pass `lidar:=false` when replaying a bag instead of running the live LiDAR.
 
 **Or, teleop only** (no LiDAR/perception/planning — just gamepad -> CAN):

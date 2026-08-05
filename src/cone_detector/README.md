@@ -15,8 +15,9 @@ visualization and as a stepping stone toward map-based planning.
 
 ```
 /points (PointCloud2)
-   -> transform into target_frame (default base_link)
-   -> CropBox        (region of interest; z bounds remove ground + ceiling)
+   -> CropBox        (region of interest, tested in the LiDAR's own frame --
+                       see note below; z bounds remove ground + ceiling)
+   -> transform survivors into target_frame (default base_link)
    -> VoxelGrid      (downsample)
    -> Euclidean clustering
    -> shape filter   (keep cup-sized clusters)
@@ -26,6 +27,18 @@ visualization and as a stepping stone toward map-based planning.
 /debug/cropped, /debug/clusters (PointCloud2)     <- tuning aids
 ```
 
+**Crop before transform, on purpose.** The obvious order is transform-then-crop,
+but `tf2::doTransform` on a full raw `PointCloud2` (~86k points for the RSAIRY)
+measured ~85-90ms/frame on the deploy laptop -- the dominant cost in the whole
+callback. Instead, `pcl::CropBox::setTransform()` is given the sensor->target
+transform: it uses that transform only to test each point against the ROI
+bounds, and returns the untransformed points at the surviving indices (see
+`pcl/filters/crop_box.h`). Only that small surviving subset then gets the real
+`pcl::transformPointCloud` call. Same geometry, ~30-60x fewer points touched by
+the actual SE3 transform. If you ever need to change how/where the transform
+happens, keep this ordering in mind -- reverting to transform-then-crop is a
+straightforward change but reintroduces that cost.
+
 ### Configuration (`config/params.yaml`)
 
 | Key | Default | Description |
@@ -34,12 +47,14 @@ visualization and as a stepping stone toward map-based planning.
 | `crop_min/max_x` | `0.2–2.5 m` | Forward region of interest |
 | `crop_min/max_y` | `±1.0 m` | Lateral region of interest |
 | `crop_min/max_z` | `0.08–0.40 m` | z bounds for ground removal |
-| `voxel_leaf` | `0.0` (disabled) | Downsample resolution |
+| `voxel_leaf` | `0.02 m` | Downsample resolution before clustering; `<= 0` disables it. Caps clustering cost on dense/large point clumps in the ROI — see the note above the value in `params.yaml` for why this is on |
 | `cluster_tolerance` | `0.12 m` | Max gap within a cluster |
 | `min/max_cluster_size` | `2–3000` | Point count gates |
 | `min_top_z` | `0.14 m` | Cluster must reach above this height to count as a cone |
 | `min/max_footprint` | `0.0–0.20 m` | Accepted cluster width/depth |
 | `min/max_height` | `0.02–0.30 m` | Accepted cluster height |
+| `max_aspect` | `10.0` | Footprint/min-dimension gate; effectively off by default (bearing-dependent, was rejecting real cones) |
+| `diagnostic` | `true` | Log every cluster's dimensions + a per-stage `timing:` line (transform/crop/voxel/cluster/shape/total) every 5th frame, and show labelled boxes on `/debug/cluster_info` |
 | `publish_debug` | `true` | Publish `/debug/*` topics |
 
 ## `cone_mapper_node`
@@ -134,6 +149,13 @@ Edit `config/params.yaml` and re-launch — no recompile needed.
    detection range (distant cups have fewer points).
 4. **Shape filter.** Watch `/debug/clusters`. If walls/legs leak through, tighten
    `max_footprint` / `max_height`. If real cups get rejected, loosen the bounds.
+5. **Keeping up in real time.** With `diagnostic: true`, watch the console for
+   the `timing:` line (every 5th frame): raw/cropped/clustered point counts and
+   a per-stage breakdown (`transform`/`nan`/`crop`/`voxel`/`cluster`/`shape`/
+   `TOTAL`, ms). If `TOTAL` creeps toward your LiDAR's frame period, check which
+   stage grew — a large non-cone object sitting in the ROI (rejected but still
+   fully clustered before being thrown away) is the usual culprit, and a
+   smaller/larger `voxel_leaf` is the first lever to reach for.
 
 ## Definition of done
 

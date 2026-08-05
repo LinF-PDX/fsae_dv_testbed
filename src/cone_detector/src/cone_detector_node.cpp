@@ -7,6 +7,7 @@
 // All tunables are ROS parameters (see config/params.yaml) so you can
 // adjust thresholds without recompiling.
 
+#include <chrono>
 #include <memory>
 #include <string>
 #include <vector>
@@ -20,7 +21,7 @@
 
 #include <tf2_ros/buffer.h>
 #include <tf2_ros/transform_listener.h>
-#include <tf2_sensor_msgs/tf2_sensor_msgs.hpp>  // doTransform for PointCloud2
+#include <tf2_eigen/tf2_eigen.hpp>  // transformToEigen
 
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
@@ -29,8 +30,9 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/segmentation/extract_clusters.h>
 #include <pcl/search/kdtree.h>
-#include <pcl/common/common.h>     // getMinMax3D
-#include <pcl/common/centroid.h>   // compute3DCentroid
+#include <pcl/common/common.h>       // getMinMax3D
+#include <pcl/common/centroid.h>     // compute3DCentroid
+#include <pcl/common/transforms.h>   // transformPointCloud
 
 using PointT = pcl::PointXYZ;
 using CloudT = pcl::PointCloud<PointT>;
@@ -94,39 +96,68 @@ public:
 private:
   void onCloud(const sensor_msgs::msg::PointCloud2::SharedPtr msg)
   {
-    // --- 0. Transform the cloud into target_frame (z = up) ---
-    sensor_msgs::msg::PointCloud2 cloud_tf;
+    using clock = std::chrono::steady_clock;
+    const auto t_start = clock::now();
+
+    // --- 0. Look up the (static) sensor -> target_frame transform. ---
+    // We do NOT transform the whole cloud here: tf2::doTransform on a raw
+    // PointCloud2 walks every field of every point through the generic ROS
+    // message iterator, which measured ~85-90ms on the full ~86k-point RSAIRY
+    // frame -- the dominant cost in this callback (see timing log below).
+    // Instead we crop first, in the sensor's own frame, using PCL's CropBox
+    // with its `transform` set to sensor->target_frame: it transforms each
+    // point ONLY for the bounds test (see crop_box.hpp) and returns the
+    // ORIGINAL, still-sensor-frame points. Only the small surviving subset
+    // is then explicitly transformed via pcl::transformPointCloud. Net
+    // effect: identical geometry, ~30-60x fewer points touched by the
+    // (relatively expensive) SE3 transform.
+    Eigen::Affine3f sensor_to_target;
     try {
       auto tf = tf_buffer_->lookupTransform(
         target_frame_, msg->header.frame_id, tf2::TimePointZero);
-      tf2::doTransform(*msg, cloud_tf, tf);
+      sensor_to_target = Eigen::Affine3f(
+        tf2::transformToEigen(tf).matrix().cast<float>());
     } catch (const tf2::TransformException & ex) {
       RCLCPP_WARN_THROTTLE(get_logger(), *get_clock(), 2000,
         "TF %s <- %s not available yet: %s",
         target_frame_.c_str(), msg->header.frame_id.c_str(), ex.what());
       return;
     }
+    const auto t_transform = clock::now();
+    const size_t raw_points = static_cast<size_t>(msg->width) * msg->height;
+
+    std_msgs::msg::Header header_out;
+    header_out.frame_id = target_frame_;
+    header_out.stamp = msg->header.stamp;
 
     CloudT::Ptr cloud(new CloudT);
-    pcl::fromROSMsg(cloud_tf, *cloud);
-    // rslidar may emit NaN-padded (non-dense) clouds; KdTree clustering on NaNs
-    // is undefined behaviour, so strip them explicitly.
-    {
-      std::vector<int> keep;
-      pcl::removeNaNFromPointCloud(*cloud, *cloud, keep);
-    }
+    pcl::fromROSMsg(*msg, *cloud);
+    // rslidar may emit NaN-padded (non-dense) clouds; CropBox already skips
+    // non-finite points internally when is_dense is false, so make sure that
+    // flag reflects reality rather than trusting whatever fromROSMsg guessed.
+    cloud->is_dense = false;
     if (cloud->empty()) return;
+    const auto t_nan = clock::now();
 
-    // --- 1. Crop to ROI (also removes ground + ceiling via z bounds) ---
-    CloudT::Ptr cropped(new CloudT);
+    // --- 1. Crop to ROI, in the sensor's own frame (also removes ground +
+    // ceiling via z bounds once transformed). ---
+    CloudT::Ptr cropped_sensor_frame(new CloudT);
     {
       pcl::CropBox<PointT> crop;
       crop.setInputCloud(cloud);
       crop.setMin(Eigen::Vector4f(crop_min_x_, crop_min_y_, crop_min_z_, 1.0f));
       crop.setMax(Eigen::Vector4f(crop_max_x_, crop_max_y_, crop_max_z_, 1.0f));
-      crop.filter(*cropped);
+      crop.setTransform(sensor_to_target);
+      crop.filter(*cropped_sensor_frame);
     }
-    if (cropped->empty()) return;
+    if (cropped_sensor_frame->empty()) return;
+
+    // Now transform just the (small) surviving subset into target_frame --
+    // this is the only per-point SE3 transform we pay for.
+    CloudT::Ptr cropped(new CloudT);
+    pcl::transformPointCloud(*cropped_sensor_frame, *cropped, sensor_to_target);
+    cropped->is_dense = true;  // CropBox already dropped non-finite points
+    const auto t_crop = clock::now();
 
     // --- 2. Optional voxel downsample. voxel_leaf <= 0 disables it. ---
     // Downsampling thins far cones (already few points), so for this cloud
@@ -142,11 +173,12 @@ private:
       ds = cropped;
     }
     if (ds->empty()) return;
+    const auto t_voxel = clock::now();
 
     if (publish_debug_ && dbg_crop_pub_->get_subscription_count() > 0) {
       sensor_msgs::msg::PointCloud2 out;
       pcl::toROSMsg(*ds, out);
-      out.header = cloud_tf.header;
+      out.header = header_out;
       dbg_crop_pub_->publish(out);
     }
 
@@ -163,17 +195,18 @@ private:
       ec.setInputCloud(ds);
       ec.extract(clusters);
     }
+    const auto t_cluster = clock::now();
 
     // --- 4. Shape filter + centroids ---
     geometry_msgs::msg::PoseArray cones;
-    cones.header = cloud_tf.header;  // now in target_frame
+    cones.header = header_out;  // now in target_frame
 
     CloudT::Ptr accepted_pts(new CloudT);  // for debug viz
     const bool diag_now = diagnostic_ && (++frame_count_ % 5 == 0);
     visualization_msgs::msg::MarkerArray info;
     {
       visualization_msgs::msg::Marker clr;
-      clr.header = cloud_tf.header;
+      clr.header = header_out;
       clr.action = visualization_msgs::msg::Marker::DELETEALL;
       info.markers.push_back(clr);
     }
@@ -217,7 +250,7 @@ private:
         RCLCPP_INFO(get_logger(),
           "cluster @(%.2f,%.2f) n=%d w=%.3f d=%.3f h=%.3f top=%.3f foot=%.3f asp=%.1f -> %s",
           centroid.x(), centroid.y(), n, width, depth, height, top, footprint, aspect, reason);
-        addInfoMarkers(info, info_id, cloud_tf.header, centroid,
+        addInfoMarkers(info, info_id, header_out, centroid,
                        width, depth, height,
                        n, top, aspect, accept, reason);
       }
@@ -238,6 +271,19 @@ private:
       RCLCPP_INFO(get_logger(), "--- %zu clusters, %zu accepted ---",
                   clusters.size(), cones.poses.size());
       dbg_info_pub_->publish(info);
+
+      const auto t_end = clock::now();
+      auto ms = [](clock::time_point a, clock::time_point b) {
+        return std::chrono::duration<double, std::milli>(b - a).count();
+      };
+      RCLCPP_INFO(get_logger(),
+        "timing: raw=%zu pts, cropped=%zu, clustered=%zu pts | "
+        "transform=%.1fms nan=%.1fms crop=%.1fms voxel=%.1fms cluster=%.1fms "
+        "shape=%.1fms TOTAL=%.1fms",
+        raw_points, cropped->size(), ds->size(),
+        ms(t_start, t_transform), ms(t_transform, t_nan), ms(t_nan, t_crop),
+        ms(t_crop, t_voxel), ms(t_voxel, t_cluster), ms(t_cluster, t_end),
+        ms(t_start, t_end));
     }
 
     cones_pub_->publish(cones);
@@ -246,7 +292,7 @@ private:
     if (publish_debug_ && dbg_clusters_pub_->get_subscription_count() > 0) {
       sensor_msgs::msg::PointCloud2 out;
       pcl::toROSMsg(*accepted_pts, out);
-      out.header = cloud_tf.header;
+      out.header = header_out;
       dbg_clusters_pub_->publish(out);
     }
 
