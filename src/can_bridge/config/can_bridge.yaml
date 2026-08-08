@@ -13,7 +13,7 @@ can_bridge:
     # "At speed_at_max_pwm m/s, send max_pwm to the firmware."
     # Calibrate by measuring actual speed at a known PWM and adjusting.
     max_pwm: 1000.0
-    speed_at_max_pwm: 0.2   # 0.2 m/s = PWM 1000 (your initial estimate)
+    speed_at_max_pwm: 0.2   # 1.0 m/s = PWM 1000 (your initial estimate)
 
     # Safety clamps in DBC units, applied after conversion.
     max_steering_dbc: 300.0     # ±30 deg in deg*10 units

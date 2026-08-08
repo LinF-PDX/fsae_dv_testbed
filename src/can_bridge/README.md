@@ -37,7 +37,7 @@ configurable ratio.
 
 Needs the CAN interface up first (see
 [`robot_bringup/scripts/can_up.sh`](../robot_bringup/README.md#scriptscan_upsh)
-or run the three `ip link` commands by hand):
+or run `sudo ip link set can0 up type can bitrate 500000` by hand):
 
 ```bash
 ros2 launch can_bridge can_bridge.launch.py interface:=can0

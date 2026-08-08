@@ -55,11 +55,11 @@ command change.
 | `lookahead_distance` | `0.6 m` | Smaller = tighter but twitchier tracking |
 | `wheelbase` | `0.25 m` | **MEASURE** — front wheel to rear axle distance |
 | `max_steering_angle` | `0.5 rad` | Servo limit (~29°) |
-| `speed` | `0.7 m/s` | Constant cruise speed, used when `adaptive_speed` is false. Start slow |
+| `speed` | `1.0 m/s` | Constant cruise speed, used when `adaptive_speed` is false. Start slow |
 | `adaptive_speed` | `false` | `true`: schedule speed off steering angle (see step 3 above) instead of constant `speed` |
-| `max_speed` | `1.0 m/s` | Adaptive mode: speed on straights (`s=0`) |
+| `max_speed` | `0.8 m/s` | Adaptive mode: speed on straights (`s=0`) — only takes effect if `adaptive_speed` is true; currently lower than the constant-mode `speed` above, so switching modes changes cruise speed too |
 | `min_speed` | `0.2 m/s` | Adaptive mode: floor at full lock (`s=1`); never crawls to a stop |
-| `speed_curve_exponent` | `0.5` | Adaptive mode: `1.0` linear; `>1` stays fast through mild steer then drops near lock; `<1` slows earlier |
+| `speed_curve_exponent` | `1.0` | Adaptive mode: `1.0` linear (current default); `>1` stays fast through mild steer then drops near lock; `<1` slows earlier |
 | `control_rate` | `50.0 Hz` | Feeds the firmware watchdog |
 | `path_timeout` | `1.5 s` | No non-empty path cached for this long -> stop |
 | `min_path_points` | `2` | Minimum points required to compute a lookahead |

@@ -16,3 +16,8 @@ delaunay_planner:
     max_waypoints: 8
 
     publish_markers: true
+
+    # /triangulation_markers: draws every Delaunay edge (not just the kept
+    # crossing ones), so it's more per-frame work than publish_markers above.
+    # On for the demo; flip to false for real runs to save the extra publish.
+    publish_triangulation: true

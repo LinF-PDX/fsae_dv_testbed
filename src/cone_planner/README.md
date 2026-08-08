@@ -8,7 +8,8 @@ no odometry, everything computed fresh per scan in the vehicle frame.
 /cones/observed (PoseArray, base_link)
    -> delaunay_planner_node
         -> /path (nav_msgs/Path)
-        `-> /path_markers (visualization_msgs/MarkerArray)
+        |-- /path_markers (visualization_msgs/MarkerArray)
+        `-- /triangulation_markers (visualization_msgs/MarkerArray)
 ```
 
 This is the FSD "exploration / reactive" planning style. Per-frame detection
@@ -47,7 +48,8 @@ degenerate/collinear frame) publishes an empty path for that scan.
 | `max_waypoint_gap` | `0.4 m` | Stop chaining waypoints past this gap |
 | `min_forward_x` | `0.0 m` | Ignore midpoints behind/at the robot |
 | `max_waypoints` | `8` | Local path length cap — a local planner only needs a few metres |
-| `publish_markers` | `true` | Publish `/path_markers` |
+| `publish_markers` | `true` | Publish `/path_markers` (centerline + waypoints) |
+| `publish_triangulation` | `true` | Publish `/triangulation_markers`. Independent of `publish_markers` — this one draws every Delaunay edge, not just the kept few, so it's the pricier of the two; turn it off for real runs and keep it on for demos |
 
 ## Run standalone
 
@@ -60,7 +62,11 @@ ros2 launch cone_planner planner.launch.py
 
 In RViz, add `/path_markers` (blue centerline + waypoint spheres) alongside
 `cone_detector`'s `/cones/markers` to check the plan against the actual
-detections.
+detections. Add `/triangulation_markers` to see the algorithm itself: every
+Delaunay triangle edge in dim gray, with the length-filtered **crossing**
+edges — the ones whose midpoints became the centerline — highlighted in
+yellow. Good for explaining the method to an audience: the yellow edges are
+visibly the ones crossing the track, not running along a boundary.
 
 ## Tuning
 

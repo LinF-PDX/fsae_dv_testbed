@@ -26,7 +26,7 @@ Method per scan:
 import numpy as np
 import rclpy
 from rclpy.node import Node
-from geometry_msgs.msg import PoseArray, PoseStamped
+from geometry_msgs.msg import Point, PoseArray, PoseStamped
 from nav_msgs.msg import Path
 from visualization_msgs.msg import Marker, MarkerArray
 
@@ -56,10 +56,20 @@ class DelaunayPlanner(Node):
 
         self.publish_markers = self.declare_parameter('publish_markers', True).value
 
+        # Separate from publish_markers: the triangulation mesh draws every
+        # Delaunay edge (not just the few kept as centerline), so it's the
+        # more expensive of the two to build/publish per frame. Independent
+        # toggle so it can be switched off for real runs while keeping the
+        # (cheaper) centerline markers on.
+        self.publish_triangulation = self.declare_parameter(
+            'publish_triangulation', True).value
+
         self.sub = self.create_subscription(
             PoseArray, '/cones/observed', self.on_cones, 10)
         self.path_pub = self.create_publisher(Path, '/path', 10)
         self.marker_pub = self.create_publisher(MarkerArray, '/path_markers', 10)
+        self.triangulation_pub = self.create_publisher(
+            MarkerArray, '/triangulation_markers', 10)
 
         self.get_logger().info(
             f'delaunay_planner up: crossing edges {self.min_edge_len:.2f}-'
@@ -69,13 +79,15 @@ class DelaunayPlanner(Node):
     def on_cones(self, msg: PoseArray):
         pts = np.array([[p.position.x, p.position.y] for p in msg.poses])
 
-        waypoints = []
+        waypoints, all_edges, crossing_edges = [], [], []
         if len(pts) >= 4:
-            waypoints = self.plan(pts)
+            waypoints, all_edges, crossing_edges = self.plan(pts)
 
         self.publish_path(msg, waypoints)
         if self.publish_markers:
             self.publish_path_markers(msg, waypoints)
+        if self.publish_triangulation:
+            self.publish_triangulation_markers(msg, pts, all_edges, crossing_edges)
 
     # ------------------------------------------------------------------
     def plan(self, pts: np.ndarray):
@@ -84,7 +96,7 @@ class DelaunayPlanner(Node):
             tri = Delaunay(pts)
         except QhullError:
             # Degenerate input (collinear cones etc.) -- no plan this frame.
-            return []
+            return [], [], []
 
         edges = set()
         for simplex in tri.simplices:
@@ -92,17 +104,22 @@ class DelaunayPlanner(Node):
                 a, b = int(simplex[i]), int(simplex[(i + 1) % 3])
                 edges.add((min(a, b), max(a, b)))
 
-        # 3-4. Length-filter to crossing edges; take midpoints.
+        # 3-4. Length-filter to crossing edges; take midpoints. Keep the
+        # (a, b) index pairs alongside each midpoint so the crossing edges
+        # can be drawn later (see publish_triangulation_markers) -- not just
+        # the point they collapse to.
         mids = []
+        crossing_edges = []
         for a, b in edges:
             d = float(np.linalg.norm(pts[a] - pts[b]))
             if self.min_edge_len <= d <= self.max_edge_len:
                 m = (pts[a] + pts[b]) / 2.0
                 if m[0] > self.min_forward_x:
                     mids.append(m)
+                    crossing_edges.append((a, b))
 
         if not mids:
-            return []
+            return [], list(edges), crossing_edges
 
         # 5. Greedy nearest-neighbour ordering from the robot (origin).
         ordered = []
@@ -116,7 +133,7 @@ class DelaunayPlanner(Node):
             cur = remaining.pop(i)
             ordered.append(cur)
 
-        return ordered
+        return ordered, list(edges), crossing_edges
 
     # ------------------------------------------------------------------
     def publish_path(self, src_msg: PoseArray, waypoints):
@@ -151,7 +168,6 @@ class DelaunayPlanner(Node):
             line.color.r, line.color.g, line.color.b, line.color.a = 0.1, 0.5, 1.0, 0.9
             line.pose.orientation.w = 1.0
             for w in waypoints:
-                from geometry_msgs.msg import Point
                 p = Point()
                 p.x, p.y, p.z = float(w[0]), float(w[1]), 0.05
                 line.points.append(p)
@@ -173,6 +189,51 @@ class DelaunayPlanner(Node):
                 arr.markers.append(s)
 
         self.marker_pub.publish(arr)
+
+    # ------------------------------------------------------------------
+    def publish_triangulation_markers(self, src_msg, pts, all_edges, crossing_edges):
+        """Draw the raw Delaunay mesh over the cones, with the crossing
+        edges (the ones that became centerline waypoints) highlighted --
+        this is purely for visualization, to make the algorithm's geometry
+        visible on top of /path_markers rather than a black box."""
+        arr = MarkerArray()
+
+        clear = Marker()
+        clear.header = src_msg.header
+        clear.action = Marker.DELETEALL
+        arr.markers.append(clear)
+
+        if all_edges:
+            mesh = Marker()
+            mesh.header = src_msg.header
+            mesh.ns = 'triangulation_mesh'
+            mesh.id = 0
+            mesh.type = Marker.LINE_LIST
+            mesh.action = Marker.ADD
+            mesh.scale.x = 0.015
+            mesh.color.r, mesh.color.g, mesh.color.b, mesh.color.a = 0.8, 0.8, 0.8, 0.5
+            mesh.pose.orientation.w = 1.0
+            for a, b in all_edges:
+                mesh.points.append(Point(x=float(pts[a][0]), y=float(pts[a][1]), z=0.02))
+                mesh.points.append(Point(x=float(pts[b][0]), y=float(pts[b][1]), z=0.02))
+            arr.markers.append(mesh)
+
+        if crossing_edges:
+            kept = Marker()
+            kept.header = src_msg.header
+            kept.ns = 'triangulation_crossing'
+            kept.id = 1
+            kept.type = Marker.LINE_LIST
+            kept.action = Marker.ADD
+            kept.scale.x = 0.025
+            kept.color.r, kept.color.g, kept.color.b, kept.color.a = 1.0, 0.9, 0.0, 0.9
+            kept.pose.orientation.w = 1.0
+            for a, b in crossing_edges:
+                kept.points.append(Point(x=float(pts[a][0]), y=float(pts[a][1]), z=0.04))
+                kept.points.append(Point(x=float(pts[b][0]), y=float(pts[b][1]), z=0.04))
+            arr.markers.append(kept)
+
+        self.triangulation_pub.publish(arr)
 
 
 def main(args=None):

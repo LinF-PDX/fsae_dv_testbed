@@ -42,7 +42,8 @@ RoboSense Airy LiDAR                                   Xbox gamepad
         v                                                     v
    delaunay_planner_node                             joy_to_ackermann_node
         |-- /path (nav_msgs/Path)                              | /cmd/manual
-        `-- /path_markers                                      |
+        |-- /path_markers                                      |
+        `-- /triangulation_markers                             |
         v                                                      |
    pure_pursuit_node                                           |
         `-- /cmd/auto (AckermannDriveStamped)                  |
